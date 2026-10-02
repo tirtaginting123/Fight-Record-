@@ -1,10 +1,7 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-
-
-<meta name="google-site-verification" content="gFiZ9CCf4aBl2DnJsTOJ--gZQLPamXSaqZQDC56nIMY" />
-
+    <meta name="google-site-verification" content="gFiZ9CCf4aBl2DnJsTOJ--gZQLPamXSaqZQDC56nIMY" />
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SDB STREET FIGHT</title>
@@ -29,11 +26,29 @@
         .top-nav { background: #14161d; border-bottom: 1px solid var(--accent-gold); padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 100; box-shadow: 0 4px 10px rgba(0,0,0,0.5);}
         .logo { font-size: 20px; font-weight: 900; color: #fff; cursor: pointer; user-select: none; padding: 5px; }
         .logo span { color: var(--accent-gold); }
-        .nav-links a { color: #fff; margin-left: 20px; font-weight: bold; font-size: 12px; text-transform: uppercase; padding: 5px; }
+        .nav-links { display: flex; gap: 15px; }
+        .nav-links a { color: #fff; font-weight: bold; font-size: 12px; text-transform: uppercase; padding: 5px; }
 
         .container { max-width: 900px; margin: 20px auto; padding: 0 15px; }
         .card { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 8px; padding: 20px; margin-bottom: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.3); }
         
+        /* SECTION TITLE */
+        .section-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 15px; border-left: 4px solid var(--accent-gold); padding-left: 10px; }
+        .section-header h3 { font-size: 16px; color: #fff; text-transform: uppercase; letter-spacing: 0.5px; }
+
+        /* UPCOMING / TBA FIGHT CARDS */
+        .upcoming-grid { display: grid; gap: 15px; margin-bottom: 15px; }
+        .upcoming-card { background: #0e1017; border: 1px solid var(--accent-gold); border-radius: 8px; padding: 18px; position: relative; box-shadow: 0 4px 12px rgba(212,175,55,0.1); }
+        .upcoming-event-name { font-size: 11px; font-weight: bold; color: var(--accent-gold); text-transform: uppercase; margin-bottom: 10px; text-align: center; letter-spacing: 1px; }
+        .upcoming-matchup { display: flex; justify-content: space-between; align-items: center; text-align: center; margin: 12px 0; gap: 10px; }
+        .upcoming-fighter { flex: 1; font-size: 16px; font-weight: bold; color: #fff; }
+        .upcoming-vs { font-size: 14px; font-weight: 900; color: #ef4444; background: rgba(239, 68, 68, 0.15); padding: 4px 10px; border-radius: 4px; border: 1px solid rgba(239, 68, 68, 0.3); }
+        .upcoming-info { background: #14161d; border-radius: 6px; padding: 12px; margin-top: 10px; border: 1px solid var(--border-color); }
+        .upcoming-info-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; font-size: 12px; }
+        .upcoming-info-row:last-child { margin-bottom: 0; }
+        .upcoming-info-lbl { color: var(--text-muted); font-weight: bold; }
+        .badge-tba { background: #e67e22; color: #fff; padding: 2px 7px; border-radius: 4px; font-size: 10px; font-weight: bold; display: inline-block; }
+
         /* SEARCH & FILTER BAR */
         .filter-container { display: flex; gap: 10px; margin-bottom: 15px; flex-wrap: wrap; }
         .search-input, .filter-select { background: #090a0d; border: 1px solid var(--border-color); color: #fff; padding: 12px; border-radius: 4px; font-size: 14px; flex: 1; outline: none; }
@@ -73,8 +88,9 @@
 
         .bout-title { text-align: center; font-size: 18px; font-weight: bold; margin: 30px 0 15px 0; color: #fff; text-transform: uppercase; border-bottom: 1px solid var(--accent-gold); padding-bottom: 10px; }
 
-        /* FORM ADMIN */
+        /* FORM ADMIN & MANAJEMEN REKOR */
         .form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 20px; }
+        .form-section-title { grid-column: 1 / -1; font-size: 13px; font-weight: bold; color: var(--accent-gold); border-bottom: 1px solid var(--border-color); padding-bottom: 5px; margin-top: 10px; text-transform: uppercase; }
         .form-group label { display: block; font-size: 11px; font-weight: bold; color: var(--accent-gold); text-transform: uppercase; margin-bottom: 6px; }
         .form-group input, .form-group select { width: 100%; background: #090a0d; border: 1px solid var(--border-color); color: #fff; padding: 12px; border-radius: 4px; outline: none; }
         .form-group input:focus, .form-group select:focus { border-color: var(--accent-gold); }
@@ -90,7 +106,6 @@
         .btn-edit { background-color: #3b82f6; color: white; }
         .btn-delete { background-color: #ef4444; color: white; }
         
-        /* STATUS CONNECTOR */
         #db-status { font-size: 11px; text-align: center; margin-bottom: 10px; font-weight:bold; }
     </style>
 </head>
@@ -100,6 +115,7 @@
         <div class="logo" id="logo-trigger">SDB <span>STREET FIGHT</span></div>
         <div class="nav-links">
             <a href="javascript:void(0)" onclick="showView('home')">Home</a>
+            <a href="javascript:void(0)" onclick="showView('tba')">📅Next Fight</a>
             <a href="javascript:void(0)" id="btn-admin-panel" class="hidden" onclick="showView('admin')">🔒 Admin</a>
         </div>
     </div>
@@ -107,8 +123,12 @@
     <div class="container">
         <div id="db-status">Menghubungkan ke Cloud Database fight-record-45ea9...</div>
 
-        <!-- ================= HOME (PERINGKAT & PENCARIAN) ================= -->
+        <!-- ================= HOME (PERINGKAT PETINJU) ================= -->
         <div id="view-home" class="card">
+            <div class="section-header">
+                <h3>🏆 Peringkat & Daftar Petinju</h3>
+            </div>
+
             <div class="filter-container">
                 <input type="text" id="home-search" class="search-input" style="flex: 2;" placeholder="Cari nama petinju..." oninput="renderHome()">
                 <select id="home-filter-div" class="filter-select" style="flex: 1;" onchange="renderHome()">
@@ -139,12 +159,25 @@
                             <th style="width: 90px;">Rank</th>
                             <th class="text-left">Petinju</th>
                             <th>Kelas</th>
-                            <th>Rekor</th>
+                            <th>Rekor (W-L-D)</th>
                             <th>KO %</th>
                         </tr>
                     </thead>
                     <tbody id="home-tbody"></tbody>
                 </table>
+            </div>
+        </div>
+
+        <!-- ================= MENU KHUSUS LAGA TBA / UPCOMING ================= -->
+        <div id="view-tba" class="hidden card">
+            <div class="section-header">
+                <h3>📅 Jadwal Pertandingan Mendatang & Status TBA</h3>
+            </div>
+            <p style="color: var(--text-muted); font-size: 13px; margin-bottom: 20px;">
+                Daftar jadwal pertarungan yang telah dikonfirmasi maupun status pertarungan <b>TBA (To Be Announced)</b>.
+            </p>
+            <div id="tba-view-container" class="upcoming-grid">
+                <!-- Data Laga TBA akan ditampilkan di sini via JavaScript -->
             </div>
         </div>
 
@@ -163,6 +196,7 @@
                     <div class="br-row"><div class="br-lbl">Stance</div><div class="br-val" id="prof-stance">-</div></div>
                     <div class="br-row"><div class="br-lbl">Height</div><div class="br-val" id="prof-height">-</div></div>
                     <div class="br-row"><div class="br-lbl">Reach</div><div class="br-val" id="prof-reach">-</div></div>
+                    <div class="br-row"><div class="br-lbl">Record</div><div class="br-val" id="prof-record" style="font-weight:bold; color: var(--accent-gold);">-</div></div>
                     <div class="br-row"><div class="br-lbl">Global ID</div><div class="br-val" id="prof-id" style="color:var(--text-muted); font-weight:bold;">-</div></div>
                 </div>
             </div>
@@ -188,7 +222,7 @@
         <!-- ================= LOGIN ADMIN ================= -->
         <div id="view-admin-login" class="hidden card" style="text-align: center; max-width: 400px; margin: 40px auto;">
             <h2 style="margin-bottom: 20px; color: var(--accent-gold);">Admin Login</h2>
-            <input type="password" id="admin-pass" placeholder="Password: " style="width: 100%; padding: 15px; margin-bottom: 20px; text-align: center; background: #090a0d; border: 1px solid var(--border-color); color: #fff; font-size: 16px; border-radius: 4px;">
+            <input type="password" id="admin-pass" placeholder="Password Admin" style="width: 100%; padding: 15px; margin-bottom: 20px; text-align: center; background: #090a0d; border: 1px solid var(--border-color); color: #fff; font-size: 16px; border-radius: 4px;">
             <button onclick="checkLogin()" class="btn-gold">Buka Akses Admin</button>
         </div>
 
@@ -196,14 +230,16 @@
         <div id="view-admin" class="hidden card">
             <div class="admin-tabs">
                 <div class="admin-tab active" onclick="switchAdminTab('add-boxer', this)">+ Formulir Petinju</div>
-                <div class="admin-tab" onclick="switchAdminTab('add-fight', this)">⚔️ Input Pertandingan</div>
-                <div class="admin-tab" onclick="switchAdminTab('manage-boxers', this)">⚙️ Kelola Petinju (Edit/Hapus)</div>
+                <div class="admin-tab" onclick="switchAdminTab('add-upcoming', this)">📅 Jadwal Fight (TBA)</div>
+                <div class="admin-tab" onclick="switchAdminTab('add-fight', this)">⚔️ Input Pertandingan Selesai</div>
+                <div class="admin-tab" onclick="switchAdminTab('manage-boxers', this)">⚙️ Kelola Petinju</div>
             </div>
 
-            <!-- TAB 1: FORM TAMBAH / EDIT PETINJU -->
+            <!-- TAB 1: FORM TAMBAH / EDIT PETINJU DENGAN MANUAL REKOR -->
             <div id="admin-add-boxer">
                 <form onsubmit="saveBoxer(event)">
                     <div class="form-grid">
+                        <div class="form-section-title">📌 Informasi Biodata Petinju</div>
                         <div class="form-group"><label>Nama Lengkap</label><input type="text" id="b-name" required></div>
                         <div class="form-group"><label>Julukan (Alias)</label><input type="text" id="b-alias" placeholder="The Destroyer"></div>
                         <div class="form-group"><label>Link Foto (URL)</label><input type="url" id="b-photo" placeholder="https://contoh.com/foto.jpg"></div>
@@ -230,15 +266,67 @@
                             </select>
                         </div>
                         <div class="form-group"><label>Stance</label><select id="b-stance"><option value="orthodox">orthodox</option><option value="southpaw">southpaw</option></select></div>
-                        <div class="form-group"><label>Tinggi (Contoh: 5' 8" / 173cm)</label><input type="text" id="b-height" required></div>
-                        <div class="form-group"><label>Jangkauan (Contoh: 68" / 173cm)</label><input type="text" id="b-reach" required></div>
+                        <div class="form-group"><label>Tinggi (Contoh: 173cm)</label><input type="text" id="b-height" required></div>
+                        <div class="form-group"><label>Jangkauan (Contoh: 173cm)</label><input type="text" id="b-reach" required></div>
+
+                        <!-- FITUR BARU: EDIT & UBAH REKOR MANUAL PETINJU -->
+                        <div class="form-section-title">📊 Ubah / Set Rekor Petinju (Manual)</div>
+                        <div class="form-group"><label>Jumlah Menang (W)</label><input type="number" id="b-manual-w" value="0" min="0" required></div>
+                        <div class="form-group"><label>Jumlah Kalah (L)</label><input type="number" id="b-manual-l" value="0" min="0" required></div>
+                        <div class="form-group"><label>Jumlah Seri (D)</label><input type="number" id="b-manual-d" value="0" min="0" required></div>
+                        <div class="form-group"><label>Kemenangan KO</label><input type="number" id="b-manual-ko" value="0" min="0" required></div>
                     </div>
+                    
                     <button type="submit" id="btn-save-boxer" class="btn-gold">Simpan Petinju Baru</button>
                     <button type="button" id="btn-cancel-edit" class="hidden" onclick="cancelEdit()" style="margin-top: 10px; width: 100%; padding: 12px; background: transparent; color: #ef4444; border: 1px solid #ef4444; border-radius: 4px; cursor:pointer;">Batalkan Edit</button>
                 </form>
             </div>
 
-            <!-- TAB 2: INPUT PERTANDINGAN -->
+            <!-- TAB 2: JADWAL FIGHT (UPCOMING / TBA) -->
+            <div id="admin-add-upcoming" class="hidden">
+                <form onsubmit="saveUpcomingFight(event)" style="margin-bottom: 30px;">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>Petinju A</label>
+                            <input type="text" id="uf-boxerA" list="boxers-datalist" placeholder="Nama Petinju A..." required>
+                        </div>
+                        <div class="form-group">
+                            <label>Petinju B (Ketik 'TBA' jika belum ada)</label>
+                            <input type="text" id="uf-boxerB" list="boxers-datalist" placeholder="Nama Petinju B / TBA..." required>
+                        </div>
+                        <div class="form-group">
+                            <label>Nama Event / Kelas</label>
+                            <input type="text" id="uf-event" placeholder="Contoh: Main Event - Featherweight" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Tanggal & Waktu (Ketik 'TBA' jika belum pasti)</label>
+                            <input type="text" id="uf-date" placeholder="Contoh: 15 Nov 2026 atau TBA" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Lokasi / Venue (Ketik 'TBA' jika belum ada)</label>
+                            <input type="text" id="uf-location" placeholder="Contoh: GOR Bandar Lampung atau TBA" required>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn-gold">Tambahkan Jadwal Pertandingan</button>
+                </form>
+
+                <h4 style="color:var(--accent-gold); margin-bottom: 10px; text-transform: uppercase;">Daftar Laga TBA & Upcoming Terpasang</h4>
+                <div class="table-responsive">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th class="text-left">Matchup</th>
+                                <th>Tanggal</th>
+                                <th>Lokasi</th>
+                                <th>Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody id="manage-upcoming-tbody"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- TAB 3: INPUT PERTANDINGAN SELESAI -->
             <div id="admin-add-fight" class="hidden">
                 <form onsubmit="saveFight(event)">
                     <div class="form-grid">
@@ -249,16 +337,16 @@
                         <div class="form-group"><label>Tanggal Laga</label><input type="date" id="f-date" required></div>
                         <div class="form-group"><label>Pemenang</label><select id="f-winner" required><option value="DRAW">Seri (Draw)</option></select></div>
                         <div class="form-group"><label>Metode (UD, KO, TKO, SD, MD)</label><input type="text" id="f-method" required></div>
-                        <div class="form-group"><label>Ronde (Contoh: 12/12 atau 2/12)</label><input type="text" id="f-rounds" required></div>
+                        <div class="form-group"><label>Ronde (Contoh: 12/12)</label><input type="text" id="f-rounds" required></div>
                     </div>
-                    <button type="submit" class="btn-gold">Simpan Pertandingan</button>
+                    <button type="submit" class="btn-gold">Simpan Pertandingan Selesai</button>
                 </form>
             </div>
 
-            <!-- TAB 3: KELOLA PETINJU -->
+            <!-- TAB 4: KELOLA PETINJU -->
             <div id="admin-manage-boxers" class="hidden">
                 <div class="filter-container">
-                    <input type="text" id="manage-search" class="search-input" placeholder="Cari petinju untuk diedit..." oninput="renderManageBoxers()">
+                    <input type="text" id="manage-search" class="search-input" placeholder="Cari petinju untuk diubah rekor atau biodata..." oninput="renderManageBoxers()">
                 </div>
                 <div class="table-responsive">
                     <table>
@@ -267,6 +355,7 @@
                                 <th>ID</th>
                                 <th class="text-left">Nama Petinju</th>
                                 <th>Kelas</th>
+                                <th>Rekor Saat Ini</th>
                                 <th>Aksi</th>
                             </tr>
                         </thead>
@@ -278,9 +367,7 @@
     </div>
 
     <script>
-        // =========================================================================
-        // KONFIGURASI FIREBASE RESMI BOSKU
-        // =========================================================================
+        // ================= FIREBASE CONFIGURATION =================
         const firebaseConfig = {
             apiKey: "AIzaSyDBM6_nTYEhqggaXKDGSoLhT5rC1ON-8xQ",
             authDomain: "fight-record-45ea9.firebaseapp.com",
@@ -291,28 +378,26 @@
             appId: "1:991470455702:web:bd318c57debcffa832ebb7",
             measurementId: "G-3RB7KKCNBW"
         };
-        // =========================================================================
 
         let db = null;
         let boxers = [];
         let fights = [];
+        let upcomingFights = [];
         let currentEditId = null;
 
-        // ================= FUNGSI BACK BUTTON HP (HISTORY API) =================
-        // Menangani navigasi saat tombol "back" (kembali) di HP ditekan
+        // ================= NAVIGATION & ROUTING =================
         window.addEventListener('popstate', (event) => {
             let view = (event.state && event.state.view) ? event.state.view : window.location.hash.replace('#', '') || 'home';
-            showView(view, false); // false agar history tidak ditambah lagi
+            showView(view, false);
         });
 
-        // Setel view pertama saat halaman dimuat
         window.addEventListener('DOMContentLoaded', () => {
             let view = window.location.hash.replace('#', '') || 'home';
             showView(view, false); 
             history.replaceState({ view: view }, "", "#" + view);
         });
 
-        // ================= INISIALISASI FIREBASE =================
+        // ================= FIREBASE CONNECTION =================
         try {
             firebase.initializeApp(firebaseConfig);
             db = firebase.database();
@@ -330,12 +415,18 @@
                 fights = data ? Object.values(data) : [];
                 renderHome();
             });
+
+            db.ref('upcomingFights').on('value', (snapshot) => {
+                const data = snapshot.val();
+                upcomingFights = data ? Object.values(data) : [];
+                renderUpcoming();
+            });
         } catch(e) {
             document.getElementById('db-status').innerText = "⚠️ Gagal menghubungkan ke Database: " + e.message;
             document.getElementById('db-status').style.color = "#ef4444";
         }
 
-        // ================= TRIGGER LOGO & NAVIGASI =================
+        // ================= HIDDEN ADMIN TRIGGER =================
         let clickCount = 0, clickTimer;
         document.getElementById('logo-trigger').addEventListener('click', (e) => {
             e.preventDefault(); clickCount++; clearTimeout(clickTimer);
@@ -343,25 +434,22 @@
             else { clickTimer = setTimeout(() => { clickCount = 0; }, 3000); }
         });
 
-        // FUNGSI NAVIGASI UTAMA SPAs
         function showView(id, pushToHistory = true) {
-            // Sembunyikan semua panel
-            ['home', 'profile', 'admin-login', 'admin'].forEach(v => {
+            ['home', 'tba', 'profile', 'admin-login', 'admin'].forEach(v => {
                 let el = document.getElementById('view-'+v);
                 if(el) el.classList.add('hidden');
             });
             
-            // Tampilkan panel yang dituju
             let targetEl = document.getElementById('view-'+id);
             if(!targetEl) { id = 'home'; targetEl = document.getElementById('view-home'); }
             
             targetEl.classList.remove('hidden');
             
             if(id === 'home') renderHome();
-            if(id === 'admin') { refreshAdminDropdowns(); renderManageBoxers(); }
+            if(id === 'tba') renderUpcoming();
+            if(id === 'admin') { refreshAdminDropdowns(); renderManageBoxers(); renderUpcoming(); }
             window.scrollTo(0,0);
 
-            // Simpan riwayat jika diperlukan
             if (pushToHistory) {
                 history.pushState({ view: id }, "", "#" + id);
             }
@@ -374,18 +462,43 @@
             } else alert('Password salah bosku!');
         }
 
-        // ================= KALKULASI REKOR & TAMPILAN UTAMA =================
+        // ================= HITUNG & GABUNGKAN REKOR PETINJU =================
         function calculateRecord(id) {
-            let w = 0, l = 0, d = 0, kos = 0, total = 0;
+            let b = boxers.find(x => x.id === id);
+            
+            // Rekor manual yang dimasukkan Admin
+            let baseW = parseInt(b?.manualW || 0);
+            let baseL = parseInt(b?.manualL || 0);
+            let baseD = parseInt(b?.manualD || 0);
+            let baseKO = parseInt(b?.manualKO || 0);
+
+            let extraW = 0, extraL = 0, extraD = 0, extraKO = 0, totalBouts = baseW + baseL + baseD;
+
             fights.forEach(f => {
                 if(f.boxerA === id || f.boxerB === id) {
-                    total++;
-                    if(f.winner === 'DRAW') d++;
-                    else if(f.winner === id) { w++; if(f.method.toUpperCase().includes('KO')) kos++; }
-                    else l++;
+                    totalBouts++;
+                    if(f.winner === 'DRAW') extraD++;
+                    else if(f.winner === id) { 
+                        extraW++; 
+                        if(f.method && f.method.toUpperCase().includes('KO')) extraKO++; 
+                    }
+                    else extraL++;
                 }
             });
-            return { w, l, d, kos, total, koPerc: w > 0 ? Math.round((kos/w)*100) : 0 };
+
+            let finalW = baseW + extraW;
+            let finalL = baseL + extraL;
+            let finalD = baseD + extraD;
+            let finalKO = baseKO + extraKO;
+
+            return { 
+                w: finalW, 
+                l: finalL, 
+                d: finalD, 
+                kos: finalKO, 
+                total: totalBouts, 
+                koPerc: finalW > 0 ? Math.round((finalKO / finalW) * 100) : 0 
+            };
         }
 
         function renderHome() {
@@ -428,9 +541,72 @@
             });
         }
 
+        // ================= MENU JADWAL TBA & UPCOMING =================
+        function renderUpcoming() {
+            const tbaContainer = document.getElementById('tba-view-container');
+            const manageTbody = document.getElementById('manage-upcoming-tbody');
+            if(!tbaContainer) return;
+
+            tbaContainer.innerHTML = '';
+            if(manageTbody) manageTbody.innerHTML = '';
+
+            if(upcomingFights.length === 0) {
+                tbaContainer.innerHTML = `<div style="text-align:center; padding: 30px; color: var(--text-muted); background: #0e1017; border-radius: 8px; border: 1px dashed var(--border-color); width: 100%;">Belum ada jadwal laga TBA atau laga mendatang yang terdaftar.</div>`;
+                if(manageTbody) manageTbody.innerHTML = `<tr><td colspan="4" style="color:var(--text-muted);">Tidak ada jadwal pertandingan mendatang.</td></tr>`;
+                return;
+            }
+
+            upcomingFights.forEach(uf => {
+                let nameA = uf.boxerA.includes(' - ') ? uf.boxerA.split(' - ')[1] : uf.boxerA;
+                let nameB = uf.boxerB.includes(' - ') ? uf.boxerB.split(' - ')[1] : uf.boxerB;
+
+                let isDateTBA = uf.date.toUpperCase().includes('TBA');
+                let isLocTBA = uf.location.toUpperCase().includes('TBA');
+                let isOppTBA = nameB.toUpperCase().includes('TBA');
+
+                let dateDisplay = isDateTBA ? `<span class="badge-tba">TBA</span>` : uf.date;
+                let locDisplay = isLocTBA ? `<span class="badge-tba">TBA (To Be Announced)</span>` : uf.location;
+                let nameBDisplay = isOppTBA ? `<span class="badge-tba">TBA</span>` : nameB;
+
+                tbaContainer.innerHTML += `
+                    <div class="upcoming-card">
+                        <div class="upcoming-event-name">🏆 ${uf.event || 'MAIN EVENT'}</div>
+                        <div class="upcoming-matchup">
+                            <div class="upcoming-fighter">${nameA}</div>
+                            <div class="upcoming-vs">VS</div>
+                            <div class="upcoming-fighter">${nameBDisplay}</div>
+                        </div>
+                        <div class="upcoming-info">
+                            <div class="upcoming-info-row">
+                                <span class="upcoming-info-lbl">📅 Tanggal & Waktu:</span>
+                                <span>${dateDisplay}</span>
+                            </div>
+                            <div class="upcoming-info-row">
+                                <span class="upcoming-info-lbl">📍 Lokasi / Venue:</span>
+                                <span>${locDisplay}</span>
+                            </div>
+                        </div>
+                    </div>
+                `;
+
+                if(manageTbody) {
+                    manageTbody.innerHTML += `
+                        <tr>
+                            <td class="text-left"><b>${nameA}</b> VS <b>${nameB}</b></td>
+                            <td>${uf.date}</td>
+                            <td>${uf.location}</td>
+                            <td>
+                                <button onclick="deleteUpcomingFight('${uf.id}')" class="btn-action btn-delete">Hapus</button>
+                            </td>
+                        </tr>
+                    `;
+                }
+            });
+        }
+
         // ================= PROFIL PETINJU =================
         function openProfile(id) {
-            showView('profile'); // History push akan dipicu secara otomatis di sini
+            showView('profile');
             const b = boxers.find(x => x.id === id); if(!b) return;
             const r = calculateRecord(b.id);
 
@@ -442,6 +618,7 @@
             document.getElementById('prof-stance').innerText = b.stance;
             document.getElementById('prof-height').innerText = b.height;
             document.getElementById('prof-reach').innerText = b.reach;
+            document.getElementById('prof-record').innerText = `${r.w} Menang (${r.kos} KO) - ${r.l} Kalah - ${r.d} Seri`;
             document.getElementById('prof-id').innerText = '#' + b.id;
             document.getElementById('prof-bouts').innerText = r.total;
 
@@ -468,9 +645,13 @@
             });
         }
 
-        // ================= PANEL ADMIN & OLAH DATA =================
+        // ================= ADMIN FUNCTIONS =================
         function switchAdminTab(tab, el) {
-            document.getElementById('admin-add-boxer').classList.add('hidden'); document.getElementById('admin-add-fight').classList.add('hidden'); document.getElementById('admin-manage-boxers').classList.add('hidden');
+            document.getElementById('admin-add-boxer').classList.add('hidden');
+            document.getElementById('admin-add-upcoming').classList.add('hidden');
+            document.getElementById('admin-add-fight').classList.add('hidden');
+            document.getElementById('admin-manage-boxers').classList.add('hidden');
+            
             document.querySelectorAll('.admin-tab').forEach(t => t.classList.remove('active'));
             document.getElementById('admin-' + tab).classList.remove('hidden'); el.classList.add('active');
         }
@@ -480,24 +661,40 @@
         function renderManageBoxers() {
             const tbody = document.getElementById('manage-tbody'); const searchVal = document.getElementById('manage-search').value.toLowerCase(); tbody.innerHTML = '';
             boxers.filter(b => b.name.toLowerCase().includes(searchVal)).forEach(b => {
+                let r = calculateRecord(b.id);
                 tbody.innerHTML += `<tr>
                     <td style="color:var(--text-muted); font-size:12px;">${b.id}</td>
                     <td class="text-left"><b>${b.name}</b></td>
                     <td>${b.division}</td>
+                    <td><b>${r.w}-${r.l}-${r.d} (${r.kos} KO)</b></td>
                     <td>
-                        <button onclick="editBoxer('${b.id}')" class="btn-action btn-edit">Edit</button>
+                        <button onclick="editBoxer('${b.id}')" class="btn-action btn-edit">Edit Biodata & Rekor</button>
                         <button onclick="deleteBoxer('${b.id}')" class="btn-action btn-delete">Hapus</button>
                     </td>
                 </tr>`;
             });
         }
 
+        // FUNGSI UTAMA UNTUK MENGEDIT PETINJU & REKOR MANUAL
         function editBoxer(id) {
             let b = boxers.find(x => x.id === id); if(!b) return; currentEditId = id;
-            ['b-name','b-alias','b-photo','b-country','b-div','b-stance','b-height','b-reach'].forEach(field => {
-                document.getElementById(field).value = b[field.replace('b-','')] || '';
-            });
-            document.getElementById('btn-save-boxer').innerText = "Simpan Perubahan Edit";
+            
+            document.getElementById('b-name').value = b.name || '';
+            document.getElementById('b-alias').value = b.alias || '';
+            document.getElementById('b-photo').value = b.photo || '';
+            document.getElementById('b-country').value = b.country || '';
+            document.getElementById('b-div').value = b.division || '';
+            document.getElementById('b-stance').value = b.stance || 'orthodox';
+            document.getElementById('b-height').value = b.height || '';
+            document.getElementById('b-reach').value = b.reach || '';
+
+            // Load Rekor Manual
+            document.getElementById('b-manual-w').value = b.manualW !== undefined ? b.manualW : 0;
+            document.getElementById('b-manual-l').value = b.manualL !== undefined ? b.manualL : 0;
+            document.getElementById('b-manual-d').value = b.manualD !== undefined ? b.manualD : 0;
+            document.getElementById('b-manual-ko').value = b.manualKO !== undefined ? b.manualKO : 0;
+
+            document.getElementById('btn-save-boxer').innerText = "Simpan Perubahan Edit & Rekor";
             document.getElementById('btn-save-boxer').style.background = "linear-gradient(135deg, #3b82f6 0%, #2563eb 100%)";
             document.getElementById('btn-save-boxer').style.color = "#fff";
             document.getElementById('btn-cancel-edit').classList.remove('hidden');
@@ -505,27 +702,43 @@
         }
 
         function cancelEdit() {
-            currentEditId = null; document.querySelector('#admin-add-boxer form').reset();
-            document.getElementById('btn-save-boxer').innerText = "Simpan Petinju Baru"; document.getElementById('btn-save-boxer').style = ""; document.getElementById('btn-cancel-edit').classList.add('hidden');
+            currentEditId = null; 
+            document.querySelector('#admin-add-boxer form').reset();
+            document.getElementById('b-manual-w').value = 0;
+            document.getElementById('b-manual-l').value = 0;
+            document.getElementById('b-manual-d').value = 0;
+            document.getElementById('b-manual-ko').value = 0;
+            document.getElementById('btn-save-boxer').innerText = "Simpan Petinju Baru"; 
+            document.getElementById('btn-save-boxer').style = ""; 
+            document.getElementById('btn-cancel-edit').classList.add('hidden');
         }
 
-        // SIMPAN KE FIREBASE
+        // SIMPAN DATA & REKOR PETINJU KE FIREBASE
         function saveBoxer(e) {
             e.preventDefault();
             if (!db) return alert("Firebase belum terhubung.");
             
             let id = currentEditId ? currentEditId : Math.floor(100000 + Math.random() * 900000).toString();
             let bData = {
-                id: id, name: document.getElementById('b-name').value, alias: document.getElementById('b-alias').value,
-                photo: document.getElementById('b-photo').value, country: document.getElementById('b-country').value,
-                division: document.getElementById('b-div').value, stance: document.getElementById('b-stance').value,
-                height: document.getElementById('b-height').value, reach: document.getElementById('b-reach').value
+                id: id, 
+                name: document.getElementById('b-name').value, 
+                alias: document.getElementById('b-alias').value,
+                photo: document.getElementById('b-photo').value, 
+                country: document.getElementById('b-country').value,
+                division: document.getElementById('b-div').value, 
+                stance: document.getElementById('b-stance').value,
+                height: document.getElementById('b-height').value, 
+                reach: document.getElementById('b-reach').value,
+                manualW: parseInt(document.getElementById('b-manual-w').value) || 0,
+                manualL: parseInt(document.getElementById('b-manual-l').value) || 0,
+                manualD: parseInt(document.getElementById('b-manual-d').value) || 0,
+                manualKO: parseInt(document.getElementById('b-manual-ko').value) || 0
             };
 
             db.ref('boxers/' + id).set(bData, (error) => {
                 if (error) alert('Gagal menyimpan ke Cloud: ' + error.message);
                 else {
-                    alert('Berhasil! Data Petinju Tersimpan di Database Cloud!');
+                    alert('Berhasil! Data & Rekor Petinju Berhasil Diperbarui di Database Cloud!');
                     if(currentEditId) cancelEdit(); else e.target.reset();
                 }
             });
@@ -538,6 +751,36 @@
                 db.ref('boxers/' + id).remove();
                 fights.forEach(f => { if(f.boxerA === id || f.boxerB === id) db.ref('fights/' + f.id).remove(); });
                 alert(`${b.name} telah terhapus.`);
+            }
+        }
+
+        function saveUpcomingFight(e) {
+            e.preventDefault();
+            if(!db) return alert("Firebase belum terhubung.");
+
+            let ufId = 'UF_' + Date.now();
+            let ufData = {
+                id: ufId,
+                boxerA: document.getElementById('uf-boxerA').value,
+                boxerB: document.getElementById('uf-boxerB').value,
+                event: document.getElementById('uf-event').value,
+                date: document.getElementById('uf-date').value,
+                location: document.getElementById('uf-location').value
+            };
+
+            db.ref('upcomingFights/' + ufId).set(ufData, (error) => {
+                if(error) alert('Gagal menyimpan jadwal: ' + error.message);
+                else {
+                    alert('Jadwal Laga TBA / Upcoming Fight Berhasil Disimpan!');
+                    e.target.reset();
+                }
+            });
+        }
+
+        function deleteUpcomingFight(id) {
+            if(!db) return alert("Firebase belum terhubung.");
+            if(confirm("Hapus jadwal pertandingan mendatang ini?")) {
+                db.ref('upcomingFights/' + id).remove();
             }
         }
 
