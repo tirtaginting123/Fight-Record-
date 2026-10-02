@@ -188,7 +188,7 @@
         <!-- ================= LOGIN ADMIN ================= -->
         <div id="view-admin-login" class="hidden card" style="text-align: center; max-width: 400px; margin: 40px auto;">
             <h2 style="margin-bottom: 20px; color: var(--accent-gold);">Admin Login</h2>
-            <input type="password" id="admin-pass" placeholder="Password: admin123" style="width: 100%; padding: 15px; margin-bottom: 20px; text-align: center; background: #090a0d; border: 1px solid var(--border-color); color: #fff; font-size: 16px; border-radius: 4px;">
+            <input type="password" id="admin-pass" placeholder="Password: " style="width: 100%; padding: 15px; margin-bottom: 20px; text-align: center; background: #090a0d; border: 1px solid var(--border-color); color: #fff; font-size: 16px; border-radius: 4px;">
             <button onclick="checkLogin()" class="btn-gold">Buka Akses Admin</button>
         </div>
 
@@ -368,7 +368,7 @@
         }
 
         function checkLogin() {
-            if(document.getElementById('admin-pass').value === 'admin123') {
+            if(document.getElementById('admin-pass').value === 'phoenix123') {
                 document.getElementById('btn-admin-panel').classList.remove('hidden');
                 document.getElementById('admin-pass').value = ''; showView('admin');
             } else alert('Password salah bosku!');
@@ -407,7 +407,7 @@
             });
 
             if(rankedBoxers.length === 0) {
-                tbody.innerHTML = '<tr><td colspan="5" style="padding: 40px; color: var(--text-muted);">Belum ada data petinju di Database. Silakan masuk Admin (Klik logo 7x) untuk menambah petinju.</td></tr>';
+                tbody.innerHTML = '<tr><td colspan="5" style="padding: 40px; color: var(--text-muted);">Belum ada data petinju di Database</td></tr>';
                 return;
             }
 
