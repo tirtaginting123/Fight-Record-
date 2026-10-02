@@ -1,16 +1,9 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <!-- SEO Meta Tags -->
-<meta name="description" content="Fight Record - Database rekor tinju dunia terlengkap secara realtime.">
-<meta name="keywords" content="rekor tinju, boxing records, statistik tinju, database petinju, jadwal tinju">
-<meta name="author" content="Admin Fight Record">
-<meta name="robots" content="index, follow">
-
-    <meta name="google-site-verification" content="TJFdVlgo7CfRZP5L3MxRuu_BNqT_KL_W_tP9mAyOUxI" />
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fight Record - World Boxing Records</title>
+    <title>SDB STREET FIGHT</title>
     
     <!-- Firebase SDK (v10.8.1 Compat) -->
     <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-app-compat.js"></script>
@@ -100,7 +93,7 @@
 <body>
 
     <div class="top-nav">
-        <div class="logo" id="logo-trigger">FIGHT <span>RECORD</span></div>
+        <div class="logo" id="logo-trigger">SDB <span>STREET FIGHT</span></div>
         <div class="nav-links">
             <a href="javascript:void(0)" onclick="showView('home')">Home</a>
             <a href="javascript:void(0)" id="btn-admin-panel" class="hidden" onclick="showView('admin')">🔒 Admin</a>
@@ -116,19 +109,22 @@
                 <input type="text" id="home-search" class="search-input" style="flex: 2;" placeholder="Cari nama petinju..." oninput="renderHome()">
                 <select id="home-filter-div" class="filter-select" style="flex: 1;" onchange="renderHome()">
                     <option value="ALL">All Weight (Semua Kelas)</option>
-                    <option value="Heavyweight">Heavyweight</option>
-                    <option value="Cruiserweight">Cruiserweight</option>
-                    <option value="Light Heavyweight">Light Heavyweight</option>
-                    <option value="Super Middleweight">Super Middleweight</option>
-                    <option value="Middleweight">Middleweight</option>
-                    <option value="Super Welterweight">Super Welterweight</option>
-                    <option value="Welterweight">Welterweight</option>
-                    <option value="Super Lightweight">Super Lightweight</option>
-                    <option value="Lightweight">Lightweight</option>
-                    <option value="Super Featherweight">Super Featherweight</option>
-                    <option value="Featherweight">Featherweight</option>
-                    <option value="Bantamweight">Bantamweight</option>
-                    <option value="Flyweight">Flyweight</option>
+                    <option value="Heavyweight (> 90.7 kg)">Heavyweight (> 90.7 kg)</option>
+                    <option value="Cruiserweight (90.7 kg)">Cruiserweight (90.7 kg)</option>
+                    <option value="Light Heavyweight (79.4 kg)">Light Heavyweight (79.4 kg)</option>
+                    <option value="Super Middleweight (76.2 kg)">Super Middleweight (76.2 kg)</option>
+                    <option value="Middleweight (72.6 kg)">Middleweight (72.6 kg)</option>
+                    <option value="Super Welterweight (69.9 kg)">Super Welterweight (69.9 kg)</option>
+                    <option value="Welterweight (66.7 kg)">Welterweight (66.7 kg)</option>
+                    <option value="Super Lightweight (63.5 kg)">Super Lightweight (63.5 kg)</option>
+                    <option value="Lightweight (61.2 kg)">Lightweight (61.2 kg)</option>
+                    <option value="Super Featherweight (59.0 kg)">Super Featherweight (59.0 kg)</option>
+                    <option value="Featherweight (57.1 kg)">Featherweight (57.1 kg)</option>
+                    <option value="Bantamweight (53.5 kg)">Bantamweight (53.5 kg)</option>
+                    <option value="Flyweight (50.8 kg)">Flyweight (50.8 kg)</option>
+                    <option value="Light Flyweight (49.0 kg)">Light Flyweight (49.0 kg)</option>
+                    <option value="Minimumweight (47.6 kg)">Minimumweight (47.6 kg)</option>
+                    <option value="Atomweight (46.3 kg)">Atomweight (46.3 kg)</option>
                 </select>
             </div>
 
@@ -167,7 +163,7 @@
                 </div>
             </div>
 
-            <div class="bout-title">Fight Record <span id="prof-bouts" style="color:var(--accent-gold);">0</span> Bouts</div>
+            <div class="bout-title"> SDB STREET FIGHT <span id="prof-bouts" style="color:var(--accent-gold);">0</span> Bouts</div>
             
             <div class="table-responsive">
                 <table>
@@ -211,19 +207,22 @@
                         <div class="form-group">
                             <label>Kelas Berat</label>
                             <select id="b-div">
-                                <option value="Heavyweight">Heavyweight</option>
-                                <option value="Cruiserweight">Cruiserweight</option>
-                                <option value="Light Heavyweight">Light Heavyweight</option>
-                                <option value="Super Middleweight">Super Middleweight</option>
-                                <option value="Middleweight">Middleweight</option>
-                                <option value="Super Welterweight">Super Welterweight</option>
-                                <option value="Welterweight">Welterweight</option>
-                                <option value="Super Lightweight">Super Lightweight</option>
-                                <option value="Lightweight">Lightweight</option>
-                                <option value="Super Featherweight">Super Featherweight</option>
-                                <option value="Featherweight">Featherweight</option>
-                                <option value="Bantamweight">Bantamweight</option>
-                                <option value="Flyweight">Flyweight</option>
+                                <option value="Heavyweight (> 90.7 kg)">Heavyweight (> 90.7 kg)</option>
+                                <option value="Cruiserweight (90.7 kg)">Cruiserweight (90.7 kg)</option>
+                                <option value="Light Heavyweight (79.4 kg)">Light Heavyweight (79.4 kg)</option>
+                                <option value="Super Middleweight (76.2 kg)">Super Middleweight (76.2 kg)</option>
+                                <option value="Middleweight (72.6 kg)">Middleweight (72.6 kg)</option>
+                                <option value="Super Welterweight (69.9 kg)">Super Welterweight (69.9 kg)</option>
+                                <option value="Welterweight (66.7 kg)">Welterweight (66.7 kg)</option>
+                                <option value="Super Lightweight (63.5 kg)">Super Lightweight (63.5 kg)</option>
+                                <option value="Lightweight (61.2 kg)">Lightweight (61.2 kg)</option>
+                                <option value="Super Featherweight (59.0 kg)">Super Featherweight (59.0 kg)</option>
+                                <option value="Featherweight (57.1 kg)">Featherweight (57.1 kg)</option>
+                                <option value="Bantamweight (53.5 kg)">Bantamweight (53.5 kg)</option>
+                                <option value="Flyweight (50.8 kg)">Flyweight (50.8 kg)</option>
+                                <option value="Light Flyweight (49.0 kg)">Light Flyweight (49.0 kg)</option>
+                                <option value="Minimumweight (47.6 kg)">Minimumweight (47.6 kg)</option>
+                                <option value="Atomweight (46.3 kg)">Atomweight (46.3 kg)</option>
                             </select>
                         </div>
                         <div class="form-group"><label>Stance</label><select id="b-stance"><option value="orthodox">orthodox</option><option value="southpaw">southpaw</option></select></div>
@@ -295,14 +294,27 @@
         let fights = [];
         let currentEditId = null;
 
-        // INISIALISASI FIREBASE
+        // ================= FUNGSI BACK BUTTON HP (HISTORY API) =================
+        // Menangani navigasi saat tombol "back" (kembali) di HP ditekan
+        window.addEventListener('popstate', (event) => {
+            let view = (event.state && event.state.view) ? event.state.view : window.location.hash.replace('#', '') || 'home';
+            showView(view, false); // false agar history tidak ditambah lagi
+        });
+
+        // Setel view pertama saat halaman dimuat
+        window.addEventListener('DOMContentLoaded', () => {
+            let view = window.location.hash.replace('#', '') || 'home';
+            showView(view, false); 
+            history.replaceState({ view: view }, "", "#" + view);
+        });
+
+        // ================= INISIALISASI FIREBASE =================
         try {
             firebase.initializeApp(firebaseConfig);
             db = firebase.database();
             document.getElementById('db-status').innerText = "⚡ Terhubung ke Cloud Realtime Database ";
             document.getElementById('db-status').style.color = "#28a745";
 
-            // BACA DATA SECARA REALTIME DARI FIREBASE
             db.ref('boxers').on('value', (snapshot) => {
                 const data = snapshot.val();
                 boxers = data ? Object.values(data) : [];
@@ -327,12 +339,28 @@
             else { clickTimer = setTimeout(() => { clickCount = 0; }, 3000); }
         });
 
-        function showView(id) {
-            ['home', 'profile', 'admin-login', 'admin'].forEach(v => document.getElementById('view-'+v).classList.add('hidden'));
-            document.getElementById('view-'+id).classList.remove('hidden');
+        // FUNGSI NAVIGASI UTAMA SPAs
+        function showView(id, pushToHistory = true) {
+            // Sembunyikan semua panel
+            ['home', 'profile', 'admin-login', 'admin'].forEach(v => {
+                let el = document.getElementById('view-'+v);
+                if(el) el.classList.add('hidden');
+            });
+            
+            // Tampilkan panel yang dituju
+            let targetEl = document.getElementById('view-'+id);
+            if(!targetEl) { id = 'home'; targetEl = document.getElementById('view-home'); }
+            
+            targetEl.classList.remove('hidden');
+            
             if(id === 'home') renderHome();
             if(id === 'admin') { refreshAdminDropdowns(); renderManageBoxers(); }
             window.scrollTo(0,0);
+
+            // Simpan riwayat jika diperlukan
+            if (pushToHistory) {
+                history.pushState({ view: id }, "", "#" + id);
+            }
         }
 
         function checkLogin() {
@@ -363,7 +391,8 @@
             tbody.innerHTML = '';
 
             let filtered = boxers.filter(b => {
-                return b.name.toLowerCase().includes(searchVal) && ((divVal === 'ALL') || (b.division === divVal));
+                let divMatch = (divVal === 'ALL') || (b.division === divVal) || (b.division && divVal.includes(b.division));
+                return b.name.toLowerCase().includes(searchVal) && divMatch;
             });
 
             let rankedBoxers = filtered.map(b => ({ ...b, stats: calculateRecord(b.id) }));
@@ -397,7 +426,7 @@
 
         // ================= PROFIL PETINJU =================
         function openProfile(id) {
-            showView('profile');
+            showView('profile'); // History push akan dipicu secara otomatis di sini
             const b = boxers.find(x => x.id === id); if(!b) return;
             const r = calculateRecord(b.id);
 
