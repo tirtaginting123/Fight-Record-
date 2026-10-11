@@ -20,14 +20,53 @@
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: Arial, sans-serif; -webkit-tap-highlight-color: transparent; }
         body { background-color: var(--bg-main); color: var(--text-main); font-size: 14px; padding-bottom: 50px; }
         a { color: var(--accent-gold); text-decoration: none; cursor: pointer; transition: 0.2s; }
-        a:hover { text-decoration: underline; color: #f3ca40; }
         .hidden { display: none !important; }
 
-        .top-nav { background: #14161d; border-bottom: 1px solid var(--accent-gold); padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 100; box-shadow: 0 4px 10px rgba(0,0,0,0.5);}
-        .logo { font-size: 20px; font-weight: 900; color: #fff; cursor: pointer; user-select: none; padding: 5px; }
+        /* TOP NAVIGATION & TOMBOL BLOK NAVIGASI */
+        .top-nav { 
+            background: #14161d; 
+            border-bottom: 1px solid var(--accent-gold); 
+            padding: 12px 16px; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            position: sticky; 
+            top: 0; 
+            z-index: 100; 
+            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+            gap: 10px;
+        }
+        .logo { font-size: 18px; font-weight: 900; color: #fff; cursor: pointer; user-select: none; flex-shrink: 0; }
         .logo span { color: var(--accent-gold); }
-        .nav-links { display: flex; gap: 15px; }
-        .nav-links a { color: #fff; font-weight: bold; font-size: 12px; text-transform: uppercase; padding: 5px; }
+        
+        /* GAYA TOMBOL NAVIGASI BERBENTUK BLOK */
+        .nav-links { display: flex; gap: 8px; align-items: center; }
+        .nav-btn { 
+            background: #090a0d; 
+            color: var(--text-muted); 
+            border: 1px solid var(--border-color); 
+            padding: 8px 12px; 
+            border-radius: 6px; 
+            font-weight: bold; 
+            font-size: 12px; 
+            text-transform: uppercase; 
+            display: inline-flex; 
+            align-items: center; 
+            gap: 5px; 
+            cursor: pointer; 
+            transition: all 0.2s ease;
+            user-select: none;
+        }
+        .nav-btn:hover { border-color: var(--accent-gold); color: #fff; }
+        .nav-btn:active { transform: scale(0.95); }
+        
+        /* STATE TOMBOL AKTIF */
+        .nav-btn.active { 
+            background: linear-gradient(135deg, #d4af37 0%, #aa820a 100%); 
+            color: #000; 
+            border-color: var(--accent-gold); 
+            box-shadow: 0 0 8px rgba(212,175,55,0.3);
+        }
 
         .container { max-width: 900px; margin: 20px auto; padding: 0 15px; }
         .card { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 8px; padding: 20px; margin-bottom: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.3); }
@@ -111,12 +150,13 @@
 </head>
 <body>
 
+    <!-- NAVIGASI ATAS DENGAN TOMBOL BLOK -->
     <div class="top-nav">
         <div class="logo" id="logo-trigger">SDB <span>STREET FIGHT</span></div>
         <div class="nav-links">
-            <a href="javascript:void(0)" onclick="showView('home')">Home</a>
-            <a href="javascript:void(0)" onclick="showView('tba')">📅Next Fight</a>
-            <a href="javascript:void(0)" id="btn-admin-panel" class="hidden" onclick="showView('admin')">🔒 Admin</a>
+            <button class="nav-btn active" id="btn-nav-home" onclick="showView('home')">🏠 Home</button>
+            <button class="nav-btn" id="btn-nav-tba" onclick="showView('tba')">📅 Next Fight</button>
+            <button class="nav-btn hidden" id="btn-admin-panel" onclick="showView('admin')">🔒 Admin</button>
         </div>
     </div>
 
@@ -131,24 +171,25 @@
 
             <div class="filter-container">
                 <input type="text" id="home-search" class="search-input" style="flex: 2;" placeholder="Cari nama petinju..." oninput="renderHome()">
+                <!-- FILTER KELAS DI HOME (NAMA KELAS TANPA BERAT) -->
                 <select id="home-filter-div" class="filter-select" style="flex: 1;" onchange="renderHome()">
                     <option value="ALL">All Weight (Semua Kelas)</option>
-                    <option value="Heavyweight (> 90.7 kg)">Heavyweight (> 90.7 kg)</option>
-                    <option value="Cruiserweight (90.7 kg)">Cruiserweight (90.7 kg)</option>
-                    <option value="Light Heavyweight (79.4 kg)">Light Heavyweight (79.4 kg)</option>
-                    <option value="Super Middleweight (76.2 kg)">Super Middleweight (76.2 kg)</option>
-                    <option value="Middleweight (72.6 kg)">Middleweight (72.6 kg)</option>
-                    <option value="Super Welterweight (69.9 kg)">Super Welterweight (69.9 kg)</option>
-                    <option value="Welterweight (66.7 kg)">Welterweight (66.7 kg)</option>
-                    <option value="Super Lightweight (63.5 kg)">Super Lightweight (63.5 kg)</option>
-                    <option value="Lightweight (61.2 kg)">Lightweight (61.2 kg)</option>
-                    <option value="Super Featherweight (59.0 kg)">Super Featherweight (59.0 kg)</option>
-                    <option value="Featherweight (57.1 kg)">Featherweight (57.1 kg)</option>
-                    <option value="Bantamweight (53.5 kg)">Bantamweight (53.5 kg)</option>
-                    <option value="Flyweight (50.8 kg)">Flyweight (50.8 kg)</option>
-                    <option value="Light Flyweight (49.0 kg)">Light Flyweight (49.0 kg)</option>
-                    <option value="Minimumweight (47.6 kg)">Minimumweight (47.6 kg)</option>
-                    <option value="Atomweight (46.3 kg)">Atomweight (46.3 kg)</option>
+                    <option value="Heavyweight">Heavyweight</option>
+                    <option value="Cruiserweight">Cruiserweight</option>
+                    <option value="Light Heavyweight">Light Heavyweight</option>
+                    <option value="Super Middleweight">Super Middleweight</option>
+                    <option value="Middleweight">Middleweight</option>
+                    <option value="Super Welterweight">Super Welterweight</option>
+                    <option value="Welterweight">Welterweight</option>
+                    <option value="Super Lightweight">Super Lightweight</option>
+                    <option value="Lightweight">Lightweight</option>
+                    <option value="Super Featherweight">Super Featherweight</option>
+                    <option value="Featherweight">Featherweight</option>
+                    <option value="Bantamweight">Bantamweight</option>
+                    <option value="Flyweight">Flyweight</option>
+                    <option value="Light Flyweight">Light Flyweight</option>
+                    <option value="Minimumweight">Minimumweight</option>
+                    <option value="Atomweight">Atomweight</option>
                 </select>
             </div>
 
@@ -235,7 +276,7 @@
                 <div class="admin-tab" onclick="switchAdminTab('manage-boxers', this)">⚙️ Kelola Petinju</div>
             </div>
 
-            <!-- TAB 1: FORM TAMBAH / EDIT PETINJU DENGAN MANUAL REKOR -->
+            <!-- TAB 1: FORM TAMBAH / EDIT PETINJU (KETERANGAN BERAT LENGKAP) -->
             <div id="admin-add-boxer">
                 <form onsubmit="saveBoxer(event)">
                     <div class="form-grid">
@@ -245,7 +286,7 @@
                         <div class="form-group"><label>Link Foto (URL)</label><input type="url" id="b-photo" placeholder="https://contoh.com/foto.jpg"></div>
                         <div class="form-group"><label>Asal Negara</label><input type="text" id="b-country" required></div>
                         <div class="form-group">
-                            <label>Kelas Berat</label>
+                            <label>Kelas Berat (Admin Mode - Lengkap)</label>
                             <select id="b-div">
                                 <option value="Heavyweight (> 90.7 kg)">Heavyweight (> 90.7 kg)</option>
                                 <option value="Cruiserweight (90.7 kg)">Cruiserweight (90.7 kg)</option>
@@ -269,7 +310,7 @@
                         <div class="form-group"><label>Tinggi (Contoh: 173cm)</label><input type="text" id="b-height" required></div>
                         <div class="form-group"><label>Jangkauan (Contoh: 173cm)</label><input type="text" id="b-reach" required></div>
 
-                        <!-- FITUR BARU: EDIT & UBAH REKOR MANUAL PETINJU -->
+                        <!-- REKOR MANUAL -->
                         <div class="form-section-title">📊 Ubah / Set Rekor Petinju (Manual)</div>
                         <div class="form-group"><label>Jumlah Menang (W)</label><input type="number" id="b-manual-w" value="0" min="0" required></div>
                         <div class="form-group"><label>Jumlah Kalah (L)</label><input type="number" id="b-manual-l" value="0" min="0" required></div>
@@ -440,14 +481,27 @@
                 if(el) el.classList.add('hidden');
             });
             
+            // RESET STATUS TOMBOL NAVIGASI
+            document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
+
             let targetEl = document.getElementById('view-'+id);
             if(!targetEl) { id = 'home'; targetEl = document.getElementById('view-home'); }
             
             targetEl.classList.remove('hidden');
             
-            if(id === 'home') renderHome();
-            if(id === 'tba') renderUpcoming();
-            if(id === 'admin') { refreshAdminDropdowns(); renderManageBoxers(); renderUpcoming(); }
+            // UPDATE HIGHLIGHT TOMBOL BERDASARKAN HALAMAN
+            if(id === 'home') {
+                document.getElementById('btn-nav-home').classList.add('active');
+                renderHome();
+            } else if(id === 'tba') {
+                document.getElementById('btn-nav-tba').classList.add('active');
+                renderUpcoming();
+            } else if(id === 'admin') {
+                let adminBtn = document.getElementById('btn-admin-panel');
+                if(adminBtn) adminBtn.classList.add('active');
+                refreshAdminDropdowns(); renderManageBoxers(); renderUpcoming();
+            }
+            
             window.scrollTo(0,0);
 
             if (pushToHistory) {
@@ -466,7 +520,6 @@
         function calculateRecord(id) {
             let b = boxers.find(x => x.id === id);
             
-            // Rekor manual yang dimasukkan Admin
             let baseW = parseInt(b?.manualW || 0);
             let baseL = parseInt(b?.manualL || 0);
             let baseD = parseInt(b?.manualD || 0);
@@ -508,7 +561,7 @@
             tbody.innerHTML = '';
 
             let filtered = boxers.filter(b => {
-                let divMatch = (divVal === 'ALL') || (b.division === divVal) || (b.division && divVal.includes(b.division));
+                let divMatch = (divVal === 'ALL') || (b.division && b.division.toLowerCase().includes(divVal.toLowerCase()));
                 return b.name.toLowerCase().includes(searchVal) && divMatch;
             });
 
@@ -675,7 +728,6 @@
             });
         }
 
-        // FUNGSI UTAMA UNTUK MENGEDIT PETINJU & REKOR MANUAL
         function editBoxer(id) {
             let b = boxers.find(x => x.id === id); if(!b) return; currentEditId = id;
             
@@ -688,7 +740,6 @@
             document.getElementById('b-height').value = b.height || '';
             document.getElementById('b-reach').value = b.reach || '';
 
-            // Load Rekor Manual
             document.getElementById('b-manual-w').value = b.manualW !== undefined ? b.manualW : 0;
             document.getElementById('b-manual-l').value = b.manualL !== undefined ? b.manualL : 0;
             document.getElementById('b-manual-d').value = b.manualD !== undefined ? b.manualD : 0;
@@ -713,7 +764,6 @@
             document.getElementById('btn-cancel-edit').classList.add('hidden');
         }
 
-        // SIMPAN DATA & REKOR PETINJU KE FIREBASE
         function saveBoxer(e) {
             e.preventDefault();
             if (!db) return alert("Firebase belum terhubung.");
