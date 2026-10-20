@@ -39,7 +39,6 @@
         .logo { font-size: 18px; font-weight: 900; color: #fff; cursor: pointer; user-select: none; flex-shrink: 0; }
         .logo span { color: var(--accent-gold); }
         
-        /* GAYA TOMBOL NAVIGASI BERBENTUK BLOK */
         .nav-links { display: flex; gap: 8px; align-items: center; }
         .nav-btn { 
             background: #090a0d; 
@@ -60,7 +59,6 @@
         .nav-btn:hover { border-color: var(--accent-gold); color: #fff; }
         .nav-btn:active { transform: scale(0.95); }
         
-        /* STATE TOMBOL AKTIF */
         .nav-btn.active { 
             background: linear-gradient(135deg, #d4af37 0%, #aa820a 100%); 
             color: #000; 
@@ -71,11 +69,9 @@
         .container { max-width: 900px; margin: 20px auto; padding: 0 15px; }
         .card { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 8px; padding: 20px; margin-bottom: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.3); }
         
-        /* SECTION TITLE */
         .section-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 15px; border-left: 4px solid var(--accent-gold); padding-left: 10px; }
         .section-header h3 { font-size: 16px; color: #fff; text-transform: uppercase; letter-spacing: 0.5px; }
 
-        /* UPCOMING / TBA FIGHT CARDS */
         .upcoming-grid { display: grid; gap: 15px; margin-bottom: 15px; }
         .upcoming-card { background: #0e1017; border: 1px solid var(--accent-gold); border-radius: 8px; padding: 18px; position: relative; box-shadow: 0 4px 12px rgba(212,175,55,0.1); }
         .upcoming-event-name { font-size: 11px; font-weight: bold; color: var(--accent-gold); text-transform: uppercase; margin-bottom: 10px; text-align: center; letter-spacing: 1px; }
@@ -88,12 +84,10 @@
         .upcoming-info-lbl { color: var(--text-muted); font-weight: bold; }
         .badge-tba { background: #e67e22; color: #fff; padding: 2px 7px; border-radius: 4px; font-size: 10px; font-weight: bold; display: inline-block; }
 
-        /* SEARCH & FILTER BAR */
         .filter-container { display: flex; gap: 10px; margin-bottom: 15px; flex-wrap: wrap; }
         .search-input, .filter-select { background: #090a0d; border: 1px solid var(--border-color); color: #fff; padding: 12px; border-radius: 4px; font-size: 14px; flex: 1; outline: none; }
         .search-input:focus, .filter-select:focus { border-color: var(--accent-gold); }
         
-        /* TABEL UTAMA */
         .table-responsive { overflow-x: auto; }
         table { width: 100%; border-collapse: collapse; font-size: 14px; margin-top: 10px; min-width: 500px; }
         th, td { border-bottom: 1px solid var(--border-color); padding: 14px 8px; text-align: center; }
@@ -101,10 +95,8 @@
         tr:hover { background: rgba(255,255,255,0.03); }
         .text-left { text-align: left; }
 
-        /* MEDALI PERINGKAT */
         .rank-badge { font-weight: bold; font-size: 15px; display: inline-flex; align-items: center; justify-content: center; gap: 4px; }
 
-        /* GAYA PROFIL */
         .profile-header { display: flex; gap: 20px; margin-bottom: 25px; flex-wrap: wrap; }
         .profile-img-container { width: 150px; height: 180px; background: #2a2e3d; border-radius: 4px; overflow: hidden; display: flex; align-items: center; justify-content: center; border: 1px solid var(--accent-gold); }
         .profile-img-container img { width: 100%; height: 100%; object-fit: cover; }
@@ -114,7 +106,6 @@
         .br-lbl { width: 110px; font-weight: bold; text-align: right; margin-right: 15px; color: var(--text-muted); font-size: 13px; text-transform: capitalize;}
         .br-val { flex: 1; color: #fff; font-size: 14px; }
         
-        /* BADGE HASIL */
         .badge-res { padding: 5px 10px; border-radius: 4px; color: white; font-weight: bold; font-size: 12px; display: inline-block; min-width: 65px; text-align: center; }
         .bg-win { background-color: #28a745; }
         .bg-loss { background-color: #dc3545; }
@@ -127,7 +118,6 @@
 
         .bout-title { text-align: center; font-size: 18px; font-weight: bold; margin: 30px 0 15px 0; color: #fff; text-transform: uppercase; border-bottom: 1px solid var(--accent-gold); padding-bottom: 10px; }
 
-        /* FORM ADMIN & MANAJEMEN REKOR */
         .form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 20px; }
         .form-section-title { grid-column: 1 / -1; font-size: 13px; font-weight: bold; color: var(--accent-gold); border-bottom: 1px solid var(--border-color); padding-bottom: 5px; margin-top: 10px; text-transform: uppercase; }
         .form-group label { display: block; font-size: 11px; font-weight: bold; color: var(--accent-gold); text-transform: uppercase; margin-bottom: 6px; }
@@ -140,17 +130,16 @@
         .admin-tab { padding: 12px 15px; background: #1a1d24; border: 1px solid var(--border-color); color: var(--text-muted); cursor: pointer; border-radius: 4px; font-weight: bold; white-space: nowrap; transition: 0.2s; }
         .admin-tab.active { background: var(--accent-gold); color: #000; border-color: var(--accent-gold); }
 
-        /* ACTION BUTTONS */
         .btn-action { padding: 6px 12px; border-radius: 4px; font-size: 11px; font-weight: bold; cursor: pointer; border: none; margin: 0 2px; }
         .btn-edit { background-color: #3b82f6; color: white; }
         .btn-delete { background-color: #ef4444; color: white; }
+        .btn-resolve { background-color: #10b981; color: white; }
         
         #db-status { font-size: 11px; text-align: center; margin-bottom: 10px; font-weight:bold; }
     </style>
 </head>
 <body>
 
-    <!-- NAVIGASI ATAS DENGAN TOMBOL BLOK -->
     <div class="top-nav">
         <div class="logo" id="logo-trigger">SDB <span>STREET FIGHT</span></div>
         <div class="nav-links">
@@ -171,25 +160,24 @@
 
             <div class="filter-container">
                 <input type="text" id="home-search" class="search-input" style="flex: 2;" placeholder="Cari nama petinju..." oninput="renderHome()">
-                <!-- FILTER KELAS DI HOME (NAMA KELAS TANPA BERAT) -->
                 <select id="home-filter-div" class="filter-select" style="flex: 1;" onchange="renderHome()">
                     <option value="ALL">All Weight (Semua Kelas)</option>
-                    <option value="Heavyweight">Heavyweight</option>
-                    <option value="Cruiserweight">Cruiserweight</option>
-                    <option value="Light Heavyweight">Light Heavyweight</option>
-                    <option value="Super Middleweight">Super Middleweight</option>
-                    <option value="Middleweight">Middleweight</option>
-                    <option value="Super Welterweight">Super Welterweight</option>
-                    <option value="Welterweight">Welterweight</option>
-                    <option value="Super Lightweight">Super Lightweight</option>
-                    <option value="Lightweight">Lightweight</option>
-                    <option value="Super Featherweight">Super Featherweight</option>
-                    <option value="Featherweight">Featherweight</option>
-                    <option value="Bantamweight">Bantamweight</option>
-                    <option value="Flyweight">Flyweight</option>
-                    <option value="Light Flyweight">Light Flyweight</option>
-                    <option value="Minimumweight">Minimumweight</option>
                     <option value="Atomweight">Atomweight</option>
+                    <option value="Minimumweight">Minimumweight</option>
+                    <option value="Light Flyweight">Light Flyweight</option>
+                    <option value="Flyweight">Flyweight</option>
+                    <option value="Bantamweight">Bantamweight</option>
+                    <option value="Featherweight">Featherweight</option>
+                    <option value="Super Featherweight">Super Featherweight</option>
+                    <option value="Lightweight">Lightweight</option>
+                    <option value="Super Lightweight">Super Lightweight</option>
+                    <option value="Welterweight">Welterweight</option>
+                    <option value="Super Welterweight">Super Welterweight</option>
+                    <option value="Middleweight">Middleweight</option>
+                    <option value="Super Middleweight">Super Middleweight</option>
+                    <option value="Light Heavyweight">Light Heavyweight</option>
+                    <option value="Cruiserweight">Cruiserweight</option>
+                    <option value="Heavyweight">Heavyweight</option>
                 </select>
             </div>
 
@@ -215,7 +203,7 @@
                 <h3>📅 Jadwal Pertandingan Mendatang & Status TBA</h3>
             </div>
             <p style="color: var(--text-muted); font-size: 13px; margin-bottom: 20px;">
-                Daftar jadwal pertarungan yang telah dikonfirmasi maupun status pertarungan <b>TBA (To Be Announced)</b>.
+                Daftar jadwal pertarungan yang telah dikonfirmasi maupun status pertarungan <b>TBA (To Be Announced)</b> (Diurutkan otomatis dari kelas teringat ke terberat).
             </p>
             <div id="tba-view-container" class="upcoming-grid">
                 <!-- Data Laga TBA akan ditampilkan di sini via JavaScript -->
@@ -276,7 +264,7 @@
                 <div class="admin-tab" onclick="switchAdminTab('manage-boxers', this)">⚙️ Kelola Petinju</div>
             </div>
 
-            <!-- TAB 1: FORM TAMBAH / EDIT PETINJU (KETERANGAN BERAT LENGKAP) -->
+            <!-- TAB 1: FORM TAMBAH / EDIT PETINJU (MODE ADMIN: DIPERTAHANKAN BERAT BADAN) -->
             <div id="admin-add-boxer">
                 <form onsubmit="saveBoxer(event)">
                     <div class="form-grid">
@@ -286,31 +274,30 @@
                         <div class="form-group"><label>Link Foto (URL)</label><input type="url" id="b-photo" placeholder="https://contoh.com/foto.jpg"></div>
                         <div class="form-group"><label>Asal Negara</label><input type="text" id="b-country" required></div>
                         <div class="form-group">
-                            <label>Kelas Berat (Admin Mode - Lengkap)</label>
+                            <label>Kelas Berat</label>
                             <select id="b-div">
-                                <option value="Heavyweight (> 90.7 kg)">Heavyweight (> 90.7 kg)</option>
-                                <option value="Cruiserweight (90.7 kg)">Cruiserweight (90.7 kg)</option>
-                                <option value="Light Heavyweight (79.4 kg)">Light Heavyweight (79.4 kg)</option>
-                                <option value="Super Middleweight (76.2 kg)">Super Middleweight (76.2 kg)</option>
-                                <option value="Middleweight (72.6 kg)">Middleweight (72.6 kg)</option>
-                                <option value="Super Welterweight (69.9 kg)">Super Welterweight (69.9 kg)</option>
-                                <option value="Welterweight (66.7 kg)">Welterweight (66.7 kg)</option>
-                                <option value="Super Lightweight (63.5 kg)">Super Lightweight (63.5 kg)</option>
-                                <option value="Lightweight (61.2 kg)">Lightweight (61.2 kg)</option>
-                                <option value="Super Featherweight (59.0 kg)">Super Featherweight (59.0 kg)</option>
-                                <option value="Featherweight (57.1 kg)">Featherweight (57.1 kg)</option>
-                                <option value="Bantamweight (53.5 kg)">Bantamweight (53.5 kg)</option>
-                                <option value="Flyweight (50.8 kg)">Flyweight (50.8 kg)</option>
-                                <option value="Light Flyweight (49.0 kg)">Light Flyweight (49.0 kg)</option>
-                                <option value="Minimumweight (47.6 kg)">Minimumweight (47.6 kg)</option>
                                 <option value="Atomweight (46.3 kg)">Atomweight (46.3 kg)</option>
+                                <option value="Minimumweight (47.6 kg)">Minimumweight (47.6 kg)</option>
+                                <option value="Light Flyweight (49.0 kg)">Light Flyweight (49.0 kg)</option>
+                                <option value="Flyweight (50.8 kg)">Flyweight (50.8 kg)</option>
+                                <option value="Bantamweight (53.5 kg)">Bantamweight (53.5 kg)</option>
+                                <option value="Featherweight (57.1 kg)">Featherweight (57.1 kg)</option>
+                                <option value="Super Featherweight (59.0 kg)">Super Featherweight (59.0 kg)</option>
+                                <option value="Lightweight (61.2 kg)">Lightweight (61.2 kg)</option>
+                                <option value="Super Lightweight (63.5 kg)">Super Lightweight (63.5 kg)</option>
+                                <option value="Welterweight (66.7 kg)">Welterweight (66.7 kg)</option>
+                                <option value="Super Welterweight (69.9 kg)">Super Welterweight (69.9 kg)</option>
+                                <option value="Middleweight (72.6 kg)">Middleweight (72.6 kg)</option>
+                                <option value="Super Middleweight (76.2 kg)">Super Middleweight (76.2 kg)</option>
+                                <option value="Light Heavyweight (79.4 kg)">Light Heavyweight (79.4 kg)</option>
+                                <option value="Cruiserweight (90.7 kg)">Cruiserweight (90.7 kg)</option>
+                                <option value="Heavyweight (> 90.7 kg)">Heavyweight (> 90.7 kg)</option>
                             </select>
                         </div>
                         <div class="form-group"><label>Stance</label><select id="b-stance"><option value="orthodox">orthodox</option><option value="southpaw">southpaw</option></select></div>
                         <div class="form-group"><label>Tinggi (Contoh: 173cm)</label><input type="text" id="b-height" required></div>
                         <div class="form-group"><label>Jangkauan (Contoh: 173cm)</label><input type="text" id="b-reach" required></div>
 
-                        <!-- REKOR MANUAL -->
                         <div class="form-section-title">📊 Ubah / Set Rekor Petinju (Manual)</div>
                         <div class="form-group"><label>Jumlah Menang (W)</label><input type="number" id="b-manual-w" value="0" min="0" required></div>
                         <div class="form-group"><label>Jumlah Kalah (L)</label><input type="number" id="b-manual-l" value="0" min="0" required></div>
@@ -323,10 +310,11 @@
                 </form>
             </div>
 
-            <!-- TAB 2: JADWAL FIGHT (UPCOMING / TBA) -->
+            <!-- TAB 2: JADWAL FIGHT (UPCOMING / TBA) (MODE ADMIN: DIPERTAHANKAN BERAT BADAN) -->
             <div id="admin-add-upcoming" class="hidden">
                 <form onsubmit="saveUpcomingFight(event)" style="margin-bottom: 30px;">
                     <div class="form-grid">
+                        <div class="form-section-title" id="upcoming-form-title">➕ Tambah Jadwal Pertandingan Baru</div>
                         <div class="form-group">
                             <label>Petinju A</label>
                             <input type="text" id="uf-boxerA" list="boxers-datalist" placeholder="Nama Petinju A..." required>
@@ -335,10 +323,29 @@
                             <label>Petinju B (Ketik 'TBA' jika belum ada)</label>
                             <input type="text" id="uf-boxerB" list="boxers-datalist" placeholder="Nama Petinju B / TBA..." required>
                         </div>
+                        
                         <div class="form-group">
-                            <label>Nama Event / Kelas</label>
-                            <input type="text" id="uf-event" placeholder="Contoh: Main Event - Featherweight" required>
+                            <label>Kelas Berat (Urutan Teringat ke Terberat)</label>
+                            <select id="uf-event" required>
+                                <option value="ATOMWEIGHT (46.3 kg)">ATOMWEIGHT (46.3 kg)</option>
+                                <option value="MINIMUMWEIGHT (47.6 kg)">MINIMUMWEIGHT (47.6 kg)</option>
+                                <option value="LIGHT FLYWEIGHT (49.0 kg)">LIGHT FLYWEIGHT (49.0 kg)</option>
+                                <option value="FLYWEIGHT (50.8 kg)">FLYWEIGHT (50.8 kg)</option>
+                                <option value="BANTAMWEIGHT (53.5 kg)">BANTAMWEIGHT (53.5 kg)</option>
+                                <option value="FEATHERWEIGHT (57.1 kg)">FEATHERWEIGHT (57.1 kg)</option>
+                                <option value="SUPER FEATHERWEIGHT (59.0 kg)">SUPER FEATHERWEIGHT (59.0 kg)</option>
+                                <option value="LIGHTWEIGHT (61.2 kg)">LIGHTWEIGHT (61.2 kg)</option>
+                                <option value="SUPER LIGHTWEIGHT (63.5 kg)">SUPER LIGHTWEIGHT (63.5 kg)</option>
+                                <option value="WELTERWEIGHT (66.7 kg)">WELTERWEIGHT (66.7 kg)</option>
+                                <option value="SUPER WELTERWEIGHT (69.9 kg)">SUPER WELTERWEIGHT (69.9 kg)</option>
+                                <option value="MIDDLEWEIGHT (72.6 kg)">MIDDLEWEIGHT (72.6 kg)</option>
+                                <option value="SUPER MIDDLEWEIGHT (76.2 kg)">SUPER MIDDLEWEIGHT (76.2 kg)</option>
+                                <option value="LIGHT HEAVYWEIGHT (79.4 kg)">LIGHT HEAVYWEIGHT (79.4 kg)</option>
+                                <option value="CRUISERWEIGHT (90.7 kg)">CRUISERWEIGHT (90.7 kg)</option>
+                                <option value="HEAVYWEIGHT (> 90.7 kg)">HEAVYWEIGHT (> 90.7 kg)</option>
+                            </select>
                         </div>
+
                         <div class="form-group">
                             <label>Tanggal & Waktu (Ketik 'TBA' jika belum pasti)</label>
                             <input type="text" id="uf-date" placeholder="Contoh: 15 Nov 2026 atau TBA" required>
@@ -348,7 +355,8 @@
                             <input type="text" id="uf-location" placeholder="Contoh: GOR Bandar Lampung atau TBA" required>
                         </div>
                     </div>
-                    <button type="submit" class="btn-gold">Tambahkan Jadwal Pertandingan</button>
+                    <button type="submit" id="btn-save-upcoming" class="btn-gold">Tambahkan Jadwal Pertandingan</button>
+                    <button type="button" id="btn-cancel-upcoming-edit" class="hidden" onclick="cancelUpcomingEdit()" style="margin-top: 10px; width: 100%; padding: 12px; background: transparent; color: #ef4444; border: 1px solid #ef4444; border-radius: 4px; cursor:pointer;">Batalkan Edit Jadwal</button>
                 </form>
 
                 <h4 style="color:var(--accent-gold); margin-bottom: 10px; text-transform: uppercase;">Daftar Laga TBA & Upcoming Terpasang</h4>
@@ -359,7 +367,7 @@
                                 <th class="text-left">Matchup</th>
                                 <th>Tanggal</th>
                                 <th>Lokasi</th>
-                                <th>Aksi</th>
+                                <th>Aksi (Edit / Hapus / Selesai)</th>
                             </tr>
                         </thead>
                         <tbody id="manage-upcoming-tbody"></tbody>
@@ -420,13 +428,41 @@
             measurementId: "G-3RB7KKCNBW"
         };
 
+        // URUTAN KELAS BERAT (0: TERINGAT / ATOMWEIGHT ➔ 15: TERBERAT / HEAVYWEIGHT)
+        const WEIGHT_ORDER = [
+            "ATOMWEIGHT",
+            "MINIMUMWEIGHT",
+            "LIGHT FLYWEIGHT",
+            "FLYWEIGHT",
+            "BANTAMWEIGHT",
+            "FEATHERWEIGHT",
+            "SUPER FEATHERWEIGHT",
+            "LIGHTWEIGHT",
+            "SUPER LIGHTWEIGHT",
+            "WELTERWEIGHT",
+            "SUPER WELTERWEIGHT",
+            "MIDDLEWEIGHT",
+            "SUPER MIDDLEWEIGHT",
+            "LIGHT HEAVYWEIGHT",
+            "CRUISERWEIGHT",
+            "HEAVYWEIGHT"
+        ];
+
+        // FUNGSI PEMBERSIH KETARANGAN BERAT BADAN UNTUK TAMPILAN DEPAN
+        function stripWeightText(text) {
+            if (!text) return '-';
+            return text.replace(/\s*\(.*?\)/g, '').trim();
+        }
+
         let db = null;
         let boxers = [];
         let fights = [];
         let upcomingFights = [];
         let currentEditId = null;
+        let currentEditingUpcomingId = null;
+        let resolvedUpcomingId = null;
 
-        // ================= NAVIGATION & ROUTING =================
+        // ================= ROUTING & NAVIGATION =================
         window.addEventListener('popstate', (event) => {
             let view = (event.state && event.state.view) ? event.state.view : window.location.hash.replace('#', '') || 'home';
             showView(view, false);
@@ -481,7 +517,6 @@
                 if(el) el.classList.add('hidden');
             });
             
-            // RESET STATUS TOMBOL NAVIGASI
             document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
 
             let targetEl = document.getElementById('view-'+id);
@@ -489,7 +524,6 @@
             
             targetEl.classList.remove('hidden');
             
-            // UPDATE HIGHLIGHT TOMBOL BERDASARKAN HALAMAN
             if(id === 'home') {
                 document.getElementById('btn-nav-home').classList.add('active');
                 renderHome();
@@ -516,7 +550,7 @@
             } else alert('Password salah bosku!');
         }
 
-        // ================= HITUNG & GABUNGKAN REKOR PETINJU =================
+        // ================= HITUNG REKOR PETINJU =================
         function calculateRecord(id) {
             let b = boxers.find(x => x.id === id);
             
@@ -561,7 +595,8 @@
             tbody.innerHTML = '';
 
             let filtered = boxers.filter(b => {
-                let divMatch = (divVal === 'ALL') || (b.division && b.division.toLowerCase().includes(divVal.toLowerCase()));
+                let cleanDiv = stripWeightText(b.division);
+                let divMatch = (divVal === 'ALL') || (cleanDiv.toLowerCase().includes(divVal.toLowerCase()));
                 return b.name.toLowerCase().includes(searchVal) && divMatch;
             });
 
@@ -587,14 +622,27 @@
                 tbody.innerHTML += `<tr>
                     <td>${rankDisplay}</td>
                     <td class="text-left"><a href="javascript:void(0)" onclick="openProfile('${b.id}')"><b>${b.name}</b></a></td>
-                    <td>${b.division}</td>
+                    <td>${stripWeightText(b.division)}</td>
                     <td><b>${b.stats.w}-${b.stats.l}-${b.stats.d}</b></td>
                     <td>${b.stats.koPerc}%</td>
                 </tr>`;
             });
         }
 
-        // ================= MENU JADWAL TBA & UPCOMING =================
+        // ================= MENENTUKAN INDEKS URUTAN KELAS BERAT =================
+        function getWeightRank(eventVal) {
+            if (!eventVal) return 999;
+            let uppercaseEvent = stripWeightText(eventVal).toUpperCase();
+            
+            for (let i = 0; i < WEIGHT_ORDER.length; i++) {
+                if (uppercaseEvent.includes(WEIGHT_ORDER[i])) {
+                    return i;
+                }
+            }
+            return 999;
+        }
+
+        // ================= MENU NEXT FIGHT (DIURUTKAN BERDASARKAN BB) =================
         function renderUpcoming() {
             const tbaContainer = document.getElementById('tba-view-container');
             const manageTbody = document.getElementById('manage-upcoming-tbody');
@@ -609,7 +657,14 @@
                 return;
             }
 
-            upcomingFights.forEach(uf => {
+            // MENGURUTKAN DARI INDEX TERKECIL (0: ATOMWEIGHT) KE TERBESAR (15: HEAVYWEIGHT)
+            let sortedUpcoming = [...upcomingFights].sort((a, b) => {
+                let rankA = getWeightRank(a.event);
+                let rankB = getWeightRank(b.event);
+                return rankA - rankB;
+            });
+
+            sortedUpcoming.forEach(uf => {
                 let nameA = uf.boxerA.includes(' - ') ? uf.boxerA.split(' - ')[1] : uf.boxerA;
                 let nameB = uf.boxerB.includes(' - ') ? uf.boxerB.split(' - ')[1] : uf.boxerB;
 
@@ -623,7 +678,7 @@
 
                 tbaContainer.innerHTML += `
                     <div class="upcoming-card">
-                        <div class="upcoming-event-name">🏆 ${uf.event || 'MAIN EVENT'}</div>
+                        <div class="upcoming-event-name">🏆 ${stripWeightText(uf.event) || 'MAIN EVENT'}</div>
                         <div class="upcoming-matchup">
                             <div class="upcoming-fighter">${nameA}</div>
                             <div class="upcoming-vs">VS</div>
@@ -649,6 +704,8 @@
                             <td>${uf.date}</td>
                             <td>${uf.location}</td>
                             <td>
+                                <button onclick="resolveUpcomingFight('${uf.id}')" class="btn-action btn-resolve" title="Selesaikan Pertandingan Ini">🏆 Selesai</button>
+                                <button onclick="editUpcomingFight('${uf.id}')" class="btn-action btn-edit">Edit</button>
                                 <button onclick="deleteUpcomingFight('${uf.id}')" class="btn-action btn-delete">Hapus</button>
                             </td>
                         </tr>
@@ -667,7 +724,7 @@
             document.getElementById('prof-name').innerText = b.name;
             document.getElementById('prof-alias').innerText = b.alias ? `'${b.alias}'` : '-';
             document.getElementById('prof-country').innerText = b.country;
-            document.getElementById('prof-div').innerText = b.division;
+            document.getElementById('prof-div').innerText = stripWeightText(b.division);
             document.getElementById('prof-stance').innerText = b.stance;
             document.getElementById('prof-height').innerText = b.height;
             document.getElementById('prof-reach').innerText = b.reach;
@@ -718,7 +775,7 @@
                 tbody.innerHTML += `<tr>
                     <td style="color:var(--text-muted); font-size:12px;">${b.id}</td>
                     <td class="text-left"><b>${b.name}</b></td>
-                    <td>${b.division}</td>
+                    <td>${b.division || '-'}</td>
                     <td><b>${r.w}-${r.l}-${r.d} (${r.kos} KO)</b></td>
                     <td>
                         <button onclick="editBoxer('${b.id}')" class="btn-action btn-edit">Edit Biodata & Rekor</button>
@@ -808,7 +865,7 @@
             e.preventDefault();
             if(!db) return alert("Firebase belum terhubung.");
 
-            let ufId = 'UF_' + Date.now();
+            let ufId = currentEditingUpcomingId ? currentEditingUpcomingId : ('UF_' + Date.now());
             let ufData = {
                 id: ufId,
                 boxerA: document.getElementById('uf-boxerA').value,
@@ -821,10 +878,38 @@
             db.ref('upcomingFights/' + ufId).set(ufData, (error) => {
                 if(error) alert('Gagal menyimpan jadwal: ' + error.message);
                 else {
-                    alert('Jadwal Laga TBA / Upcoming Fight Berhasil Disimpan!');
-                    e.target.reset();
+                    alert(currentEditingUpcomingId ? 'Jadwal berhasil diperbarui!' : 'Jadwal Laga TBA / Upcoming Fight Berhasil Disimpan!');
+                    cancelUpcomingEdit();
                 }
             });
+        }
+
+        function editUpcomingFight(id) {
+            let uf = upcomingFights.find(x => x.id === id);
+            if(!uf) return;
+            currentEditingUpcomingId = id;
+
+            document.getElementById('uf-boxerA').value = uf.boxerA || '';
+            document.getElementById('uf-boxerB').value = uf.boxerB || '';
+            document.getElementById('uf-event').value = uf.event || 'ATOMWEIGHT (46.3 kg)';
+            document.getElementById('uf-date').value = uf.date || '';
+            document.getElementById('uf-location').value = uf.location || '';
+
+            document.getElementById('upcoming-form-title').innerText = "✏️ Edit Jadwal Pertandingan";
+            document.getElementById('btn-save-upcoming').innerText = "Simpan Perubahan Jadwal";
+            document.getElementById('btn-save-upcoming').style.background = "linear-gradient(135deg, #3b82f6 0%, #2563eb 100%)";
+            document.getElementById('btn-save-upcoming').style.color = "#fff";
+            document.getElementById('btn-cancel-upcoming-edit').classList.remove('hidden');
+            window.scrollTo(0,0);
+        }
+
+        function cancelUpcomingEdit() {
+            currentEditingUpcomingId = null;
+            document.querySelector('#admin-add-upcoming form').reset();
+            document.getElementById('upcoming-form-title').innerText = "➕ Tambah Jadwal Pertandingan Baru";
+            document.getElementById('btn-save-upcoming').innerText = "Tambahkan Jadwal Pertandingan";
+            document.getElementById('btn-save-upcoming').style = "";
+            document.getElementById('btn-cancel-upcoming-edit').classList.add('hidden');
         }
 
         function deleteUpcomingFight(id) {
@@ -834,9 +919,24 @@
             }
         }
 
+        function resolveUpcomingFight(id) {
+            let uf = upcomingFights.find(x => x.id === id);
+            if(!uf) return;
+
+            resolvedUpcomingId = id;
+
+            switchAdminTab('add-fight', document.querySelectorAll('.admin-tab')[2]);
+
+            document.getElementById('f-boxerA').value = uf.boxerA;
+            document.getElementById('f-boxerB').value = uf.boxerB;
+            updateWinnerSelect();
+            window.scrollTo(0, 0);
+        }
+
         function updateWinnerSelect() {
             let a = document.getElementById('f-boxerA').value.split(' - ')[0], b = document.getElementById('f-boxerB').value.split(' - ')[0];
-            let nA = boxers.find(x => x.id === a)?.name || 'Petinju A', nB = boxers.find(x => x.id === b)?.name || 'Petinju B';
+            let nA = boxers.find(x => x.id === a)?.name || a || 'Petinju A';
+            let nB = boxers.find(x => x.id === b)?.name || b || 'Petinju B';
             document.getElementById('f-winner').innerHTML = `<option value="${a}">${nA} (Menang)</option><option value="${b}">${nB} (Menang)</option><option value="DRAW">Seri / Draw</option>`;
         }
 
@@ -844,8 +944,11 @@
             e.preventDefault();
             if (!db) return alert("Firebase belum terhubung.");
             
-            let a = document.getElementById('f-boxerA').value.split(' - ')[0], b = document.getElementById('f-boxerB').value.split(' - ')[0];
-            if(!boxers.some(x=>x.id===a) || !boxers.some(x=>x.id===b)) return alert('Nama/ID Petinju tidak ditemukan!');
+            let aInput = document.getElementById('f-boxerA').value;
+            let bInput = document.getElementById('f-boxerB').value;
+            let a = aInput.split(' - ')[0]; 
+            let b = bInput.split(' - ')[0];
+
             if(a === b) return alert('Petinju tidak bisa melawan dirinya sendiri!');
             
             let fightId = 'F_' + Date.now();
@@ -855,8 +958,17 @@
             };
 
             db.ref('fights/' + fightId).set(fightData, (error) => {
-                if(error) alert('Gagal menyimpan pertandingan: ' + error.message);
-                else { alert('Pertandingan Berhasil Tersimpan!'); e.target.reset(); updateWinnerSelect(); }
+                if(error) {
+                    alert('Gagal menyimpan pertandingan: ' + error.message);
+                } else {
+                    if (resolvedUpcomingId) {
+                        db.ref('upcomingFights/' + resolvedUpcomingId).remove();
+                        resolvedUpcomingId = null;
+                    }
+                    alert('Pertandingan Berhasil Tersimpan dan Peringkat Diperbarui!'); 
+                    e.target.reset(); 
+                    updateWinnerSelect(); 
+                }
             });
         }
     </script>
