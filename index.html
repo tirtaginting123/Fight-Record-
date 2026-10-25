@@ -260,11 +260,12 @@
             <div class="admin-tabs">
                 <div class="admin-tab active" onclick="switchAdminTab('add-boxer', this)">+ Formulir Petinju</div>
                 <div class="admin-tab" onclick="switchAdminTab('add-upcoming', this)">📅 Jadwal Fight (TBA)</div>
-                <div class="admin-tab" onclick="switchAdminTab('add-fight', this)">⚔️ Input Pertandingan Selesai</div>
+                <div class="admin-tab" onclick="switchAdminTab('add-fight', this)">⚔️ Input Pertandingan</div>
+                <div class="admin-tab" onclick="switchAdminTab('manage-fights', this)">⚔️ Riwayat Laga</div>
                 <div class="admin-tab" onclick="switchAdminTab('manage-boxers', this)">⚙️ Kelola Petinju</div>
             </div>
 
-            <!-- TAB 1: FORM TAMBAH / EDIT PETINJU (MODE ADMIN: DIPERTAHANKAN BERAT BADAN) -->
+            <!-- TAB 1: FORM TAMBAH / EDIT PETINJU -->
             <div id="admin-add-boxer">
                 <form onsubmit="saveBoxer(event)">
                     <div class="form-grid">
@@ -310,7 +311,7 @@
                 </form>
             </div>
 
-            <!-- TAB 2: JADWAL FIGHT (UPCOMING / TBA) (MODE ADMIN: DIPERTAHANKAN BERAT BADAN) -->
+            <!-- TAB 2: JADWAL FIGHT (UPCOMING / TBA) -->
             <div id="admin-add-upcoming" class="hidden">
                 <form onsubmit="saveUpcomingFight(event)" style="margin-bottom: 30px;">
                     <div class="form-grid">
@@ -379,6 +380,7 @@
             <div id="admin-add-fight" class="hidden">
                 <form onsubmit="saveFight(event)">
                     <div class="form-grid">
+                        <div class="form-section-title" id="fight-form-title">⚔️ Input Pertandingan Selesai</div>
                         <div class="form-group"><label>Petinju Utama (A)</label><input type="text" id="f-boxerA" list="boxers-datalist" placeholder="Ketik Nama..." required onchange="updateWinnerSelect()"></div>
                         <div class="form-group"><label>Petinju Lawan (B)</label><input type="text" id="f-boxerB" list="boxers-datalist" placeholder="Ketik Nama..." required onchange="updateWinnerSelect()"></div>
                         <datalist id="boxers-datalist"></datalist>
@@ -388,11 +390,32 @@
                         <div class="form-group"><label>Metode (UD, KO, TKO, SD, MD)</label><input type="text" id="f-method" required></div>
                         <div class="form-group"><label>Ronde (Contoh: 12/12)</label><input type="text" id="f-rounds" required></div>
                     </div>
-                    <button type="submit" class="btn-gold">Simpan Pertandingan Selesai</button>
+                    <button type="submit" id="btn-save-fight" class="btn-gold">Simpan Pertandingan Selesai</button>
+                    <button type="button" id="btn-cancel-fight-edit" class="hidden" onclick="cancelFightEdit()" style="margin-top: 10px; width: 100%; padding: 12px; background: transparent; color: #ef4444; border: 1px solid #ef4444; border-radius: 4px; cursor:pointer;">Batalkan Edit Laga</button>
                 </form>
             </div>
 
-            <!-- TAB 4: KELOLA PETINJU -->
+            <!-- TAB 4: RIWAYAT LAGA SELESAI (BISA DIEDIT/DIUBAH METODE & PEMENANG) -->
+            <div id="admin-manage-fights" class="hidden">
+                <h4 style="color:var(--accent-gold); margin-bottom: 10px; text-transform: uppercase;">Daftar Pertandingan Selesai (Ubah Metode / Pemenang)</h4>
+                <p style="color:var(--text-muted); font-size:12px; margin-bottom:15px;">Jika salah input (misal salah klik KO menjadi UD), klik tombol **Edit** untuk memperbaikinya.</p>
+                <div class="table-responsive">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Tanggal</th>
+                                <th class="text-left">Matchup</th>
+                                <th>Pemenang</th>
+                                <th>Metode</th>
+                                <th>Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody id="manage-fights-tbody"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- TAB 5: KELOLA PETINJU -->
             <div id="admin-manage-boxers" class="hidden">
                 <div class="filter-container">
                     <input type="text" id="manage-search" class="search-input" placeholder="Cari petinju untuk diubah rekor atau biodata..." oninput="renderManageBoxers()">
@@ -448,7 +471,6 @@
             "HEAVYWEIGHT"
         ];
 
-        // FUNGSI PEMBERSIH KETARANGAN BERAT BADAN UNTUK TAMPILAN DEPAN
         function stripWeightText(text) {
             if (!text) return '-';
             return text.replace(/\s*\(.*?\)/g, '').trim();
@@ -460,6 +482,7 @@
         let upcomingFights = [];
         let currentEditId = null;
         let currentEditingUpcomingId = null;
+        let currentEditingFightId = null;
         let resolvedUpcomingId = null;
 
         // ================= ROUTING & NAVIGATION =================
@@ -484,13 +507,13 @@
             db.ref('boxers').on('value', (snapshot) => {
                 const data = snapshot.val();
                 boxers = data ? Object.values(data) : [];
-                renderHome(); refreshAdminDropdowns(); renderManageBoxers();
+                renderHome(); refreshAdminDropdowns(); renderManageBoxers(); renderManageFights();
             });
 
             db.ref('fights').on('value', (snapshot) => {
                 const data = snapshot.val();
                 fights = data ? Object.values(data) : [];
-                renderHome();
+                renderHome(); renderManageFights();
             });
 
             db.ref('upcomingFights').on('value', (snapshot) => {
@@ -533,7 +556,7 @@
             } else if(id === 'admin') {
                 let adminBtn = document.getElementById('btn-admin-panel');
                 if(adminBtn) adminBtn.classList.add('active');
-                refreshAdminDropdowns(); renderManageBoxers(); renderUpcoming();
+                refreshAdminDropdowns(); renderManageBoxers(); renderUpcoming(); renderManageFights();
             }
             
             window.scrollTo(0,0);
@@ -629,7 +652,6 @@
             });
         }
 
-        // ================= MENENTUKAN INDEKS URUTAN KELAS BERAT =================
         function getWeightRank(eventVal) {
             if (!eventVal) return 999;
             let uppercaseEvent = stripWeightText(eventVal).toUpperCase();
@@ -642,7 +664,6 @@
             return 999;
         }
 
-        // ================= MENU NEXT FIGHT (DIURUTKAN BERDASARKAN BB) =================
         function renderUpcoming() {
             const tbaContainer = document.getElementById('tba-view-container');
             const manageTbody = document.getElementById('manage-upcoming-tbody');
@@ -657,7 +678,6 @@
                 return;
             }
 
-            // MENGURUTKAN DARI INDEX TERKECIL (0: ATOMWEIGHT) KE TERBESAR (15: HEAVYWEIGHT)
             let sortedUpcoming = [...upcomingFights].sort((a, b) => {
                 let rankA = getWeightRank(a.event);
                 let rankB = getWeightRank(b.event);
@@ -760,10 +780,12 @@
             document.getElementById('admin-add-boxer').classList.add('hidden');
             document.getElementById('admin-add-upcoming').classList.add('hidden');
             document.getElementById('admin-add-fight').classList.add('hidden');
+            document.getElementById('admin-manage-fights').classList.add('hidden');
             document.getElementById('admin-manage-boxers').classList.add('hidden');
             
             document.querySelectorAll('.admin-tab').forEach(t => t.classList.remove('active'));
-            document.getElementById('admin-' + tab).classList.remove('hidden'); el.classList.add('active');
+            document.getElementById('admin-' + tab).classList.remove('hidden'); 
+            if(el) el.classList.add('active');
         }
 
         function refreshAdminDropdowns() { document.getElementById('boxers-datalist').innerHTML = boxers.map(b => `<option value="${b.id} - ${b.name}"></option>`).join(''); }
@@ -775,13 +797,47 @@
                 tbody.innerHTML += `<tr>
                     <td style="color:var(--text-muted); font-size:12px;">${b.id}</td>
                     <td class="text-left"><b>${b.name}</b></td>
-                    <td>${b.division || '-'}</td>
+                    <td>${stripWeightText(b.division) || '-'}</td>
                     <td><b>${r.w}-${r.l}-${r.d} (${r.kos} KO)</b></td>
                     <td>
                         <button onclick="editBoxer('${b.id}')" class="btn-action btn-edit">Edit Biodata & Rekor</button>
                         <button onclick="deleteBoxer('${b.id}')" class="btn-action btn-delete">Hapus</button>
                     </td>
                 </tr>`;
+            });
+        }
+
+        function renderManageFights() {
+            const tbody = document.getElementById('manage-fights-tbody');
+            if(!tbody) return;
+            tbody.innerHTML = '';
+
+            if(fights.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="5" style="color:var(--text-muted); padding: 20px;">Belum ada riwayat pertandingan selesai.</td></tr>`;
+                return;
+            }
+
+            let sortedFights = [...fights].sort((x, y) => new Date(y.date) - new Date(x.date));
+
+            sortedFights.forEach(f => {
+                let bA = boxers.find(x => x.id === f.boxerA);
+                let bB = boxers.find(x => x.id === f.boxerB);
+                let nameA = bA ? bA.name : f.boxerA;
+                let nameB = bB ? bB.name : f.boxerB;
+                let winnerText = f.winner === 'DRAW' ? 'DRAW' : (boxers.find(x => x.id === f.winner)?.name || f.winner);
+
+                tbody.innerHTML += `
+                    <tr>
+                        <td style="white-space:nowrap; font-size:12px; color:var(--text-muted);">${f.date}</td>
+                        <td class="text-left"><b>${nameA}</b> vs <b>${nameB}</b></td>
+                        <td><span style="color:var(--accent-gold); font-weight:bold;">${winnerText}</span></td>
+                        <td><span style="background:rgba(212,175,55,0.15); padding:3px 8px; border-radius:4px; font-weight:bold;">${f.method}</span></td>
+                        <td>
+                            <button onclick="editFight('${f.id}')" class="btn-action btn-edit">Edit</button>
+                            <button onclick="deleteFight('${f.id}')" class="btn-action btn-delete">Hapus</button>
+                        </td>
+                    </tr>
+                `;
             });
         }
 
@@ -940,6 +996,53 @@
             document.getElementById('f-winner').innerHTML = `<option value="${a}">${nA} (Menang)</option><option value="${b}">${nB} (Menang)</option><option value="DRAW">Seri / Draw</option>`;
         }
 
+        function editFight(id) {
+            let f = fights.find(x => x.id === id);
+            if(!f) return;
+            currentEditingFightId = id;
+
+            let bA = boxers.find(x => x.id === f.boxerA);
+            let bB = boxers.find(x => x.id === f.boxerB);
+
+            document.getElementById('f-boxerA').value = bA ? `${bA.id} - ${bA.name}` : f.boxerA;
+            document.getElementById('f-boxerB').value = bB ? `${bB.id} - ${bB.name}` : f.boxerB;
+            document.getElementById('f-date').value = f.date || '';
+            
+            updateWinnerSelect();
+            document.getElementById('f-winner').value = f.winner || 'DRAW';
+            document.getElementById('f-method').value = f.method || '';
+            document.getElementById('f-rounds').value = f.rounds || '';
+
+            document.getElementById('fight-form-title').innerText = "✏️ Edit Pertandingan Selesai";
+            document.getElementById('btn-save-fight').innerText = "Simpan Perubahan Laga";
+            document.getElementById('btn-save-fight').style.background = "linear-gradient(135deg, #3b82f6 0%, #2563eb 100%)";
+            document.getElementById('btn-save-fight').style.color = "#fff";
+            document.getElementById('btn-cancel-fight-edit').classList.remove('hidden');
+
+            switchAdminTab('add-fight', document.querySelectorAll('.admin-tab')[2]);
+            window.scrollTo(0,0);
+        }
+
+        function cancelFightEdit() {
+            currentEditingFightId = null;
+            document.querySelector('#admin-add-fight form').reset();
+            document.getElementById('fight-form-title').innerText = "⚔️ Input Pertandingan Selesai";
+            document.getElementById('btn-save-fight').innerText = "Simpan Pertandingan Selesai";
+            document.getElementById('btn-save-fight').style = "";
+            document.getElementById('btn-cancel-fight-edit').classList.add('hidden');
+            updateWinnerSelect();
+        }
+
+        function deleteFight(id) {
+            if(!db) return alert("Firebase belum terhubung.");
+            if(confirm("Hapus riwayat pertandingan ini? Rekor petinju akan disesuaikan kembali.")) {
+                db.ref('fights/' + id).remove((error) => {
+                    if(error) alert('Gagal menghapus: ' + error.message);
+                    else alert('Pertandingan berhasil dihapus.');
+                });
+            }
+        }
+
         function saveFight(e) {
             e.preventDefault();
             if (!db) return alert("Firebase belum terhubung.");
@@ -951,23 +1054,27 @@
 
             if(a === b) return alert('Petinju tidak bisa melawan dirinya sendiri!');
             
-            let fightId = 'F_' + Date.now();
+            let fightId = currentEditingFightId ? currentEditingFightId : ('F_' + Date.now());
             let fightData = {
-                id: fightId, boxerA: a, boxerB: b, date: document.getElementById('f-date').value,
-                winner: document.getElementById('f-winner').value, method: document.getElementById('f-method').value, rounds: document.getElementById('f-rounds').value
+                id: fightId, 
+                boxerA: a, 
+                boxerB: b, 
+                date: document.getElementById('f-date').value,
+                winner: document.getElementById('f-winner').value, 
+                method: document.getElementById('f-method').value, 
+                rounds: document.getElementById('f-rounds').value
             };
 
             db.ref('fights/' + fightId).set(fightData, (error) => {
                 if(error) {
                     alert('Gagal menyimpan pertandingan: ' + error.message);
                 } else {
-                    if (resolvedUpcomingId) {
+                    if (resolvedUpcomingId && !currentEditingFightId) {
                         db.ref('upcomingFights/' + resolvedUpcomingId).remove();
                         resolvedUpcomingId = null;
                     }
-                    alert('Pertandingan Berhasil Tersimpan dan Peringkat Diperbarui!'); 
-                    e.target.reset(); 
-                    updateWinnerSelect(); 
+                    alert(currentEditingFightId ? 'Perubahan pertandingan berhasil disimpan!' : 'Pertandingan Berhasil Tersimpan dan Peringkat Diperbarui!'); 
+                    cancelFightEdit();
                 }
             });
         }
