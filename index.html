@@ -145,7 +145,7 @@
         <div class="nav-links">
             <button class="nav-btn active" id="btn-nav-home" onclick="showView('home')">🏠 Home</button>
             <button class="nav-btn" id="btn-nav-tba" onclick="showView('tba')">📅 Next Fight</button>
-            <button class="nav-btn hidden" id="btn-admin-panel" onclick="showView('admin')">🔒 Admin</button>
+            <!-- Tombol Admin Sengaja Dihilangkan dari Menu Utama Agar Aman -->
         </div>
     </div>
 
@@ -214,7 +214,7 @@
         <div id="view-profile" class="hidden card">
             <div class="profile-header">
                 <div class="profile-img-container">
-                    <img id="prof-img" src="" alt="Foto" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'150\' height=\'180\'><rect width=\'150\' height=\'180\' fill=\'%232a2e3d\'/><text x=\'50%\' y=\'50%\' fill=\'%239ca3af\' font-size=\'14\' text-anchor=\'middle\' dy=\'.3em\'>NO PHOTO</text></svg>'">
+                    <img id="prof-img" src="" alt="Foto" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'150\' height=\'180\'><rect width=\'150\' height=\'180\' fill=\'%232a2e3d\'/><text x=\'50%\' y=\'50% \' fill=\'%239ca3af\' font-size=\'14\' text-anchor=\'middle\' dy=\'.3em\'>NO PHOTO</text></svg>'">
                 </div>
                 
                 <div class="br-list">
@@ -251,8 +251,10 @@
         <!-- ================= LOGIN ADMIN ================= -->
         <div id="view-admin-login" class="hidden card" style="text-align: center; max-width: 400px; margin: 40px auto;">
             <h2 style="margin-bottom: 20px; color: var(--accent-gold);">Admin Login</h2>
+            <p style="color: var(--text-muted); font-size: 12px; margin-bottom: 15px;">Masukkan password rahasia untuk masuk ke Panel Kontrol.</p>
             <input type="password" id="admin-pass" placeholder="Password Admin" style="width: 100%; padding: 15px; margin-bottom: 20px; text-align: center; background: #090a0d; border: 1px solid var(--border-color); color: #fff; font-size: 16px; border-radius: 4px;">
             <button onclick="checkLogin()" class="btn-gold">Buka Akses Admin</button>
+            <button onclick="showView('home')" style="margin-top: 10px; background: transparent; border: none; color: var(--text-muted); cursor: pointer;">Kembali ke Beranda</button>
         </div>
 
         <!-- ================= PANEL ADMIN ================= -->
@@ -395,10 +397,10 @@
                 </form>
             </div>
 
-            <!-- TAB 4: RIWAYAT LAGA SELESAI (BISA DIEDIT/DIUBAH METODE & PEMENANG) -->
+            <!-- TAB 4: RIWAYAT LAGA SELESAI -->
             <div id="admin-manage-fights" class="hidden">
                 <h4 style="color:var(--accent-gold); margin-bottom: 10px; text-transform: uppercase;">Daftar Pertandingan Selesai (Ubah Metode / Pemenang)</h4>
-                <p style="color:var(--text-muted); font-size:12px; margin-bottom:15px;">Jika salah input (misal salah klik KO menjadi UD), klik tombol **Edit** untuk memperbaikinya.</p>
+                <p style="color:var(--text-muted); font-size:12px; margin-bottom:15px;">Jika salah input, klik tombol **Edit** untuk memperbaikinya.</p>
                 <div class="table-responsive">
                     <table>
                         <thead>
@@ -451,24 +453,11 @@
             measurementId: "G-3RB7KKCNBW"
         };
 
-        // URUTAN KELAS BERAT (0: TERINGAT / ATOMWEIGHT ➔ 15: TERBERAT / HEAVYWEIGHT)
         const WEIGHT_ORDER = [
-            "ATOMWEIGHT",
-            "MINIMUMWEIGHT",
-            "LIGHT FLYWEIGHT",
-            "FLYWEIGHT",
-            "BANTAMWEIGHT",
-            "FEATHERWEIGHT",
-            "SUPER FEATHERWEIGHT",
-            "LIGHTWEIGHT",
-            "SUPER LIGHTWEIGHT",
-            "WELTERWEIGHT",
-            "SUPER WELTERWEIGHT",
-            "MIDDLEWEIGHT",
-            "SUPER MIDDLEWEIGHT",
-            "LIGHT HEAVYWEIGHT",
-            "CRUISERWEIGHT",
-            "HEAVYWEIGHT"
+            "ATOMWEIGHT", "MINIMUMWEIGHT", "LIGHT FLYWEIGHT", "FLYWEIGHT",
+            "BANTAMWEIGHT", "FEATHERWEIGHT", "SUPER FEATHERWEIGHT", "LIGHTWEIGHT",
+            "SUPER LIGHTWEIGHT", "WELTERWEIGHT", "SUPER WELTERWEIGHT", "MIDDLEWEIGHT",
+            "SUPER MIDDLEWEIGHT", "LIGHT HEAVYWEIGHT", "CRUISERWEIGHT", "HEAVYWEIGHT"
         ];
 
         function stripWeightText(text) {
@@ -488,11 +477,13 @@
         // ================= ROUTING & NAVIGATION =================
         window.addEventListener('popstate', (event) => {
             let view = (event.state && event.state.view) ? event.state.view : window.location.hash.replace('#', '') || 'home';
+            if (view === 'admin' || view === 'admin-login') view = 'home'; // Blokir akses langsung lewat URL hash
             showView(view, false);
         });
 
         window.addEventListener('DOMContentLoaded', () => {
             let view = window.location.hash.replace('#', '') || 'home';
+            if (view === 'admin' || view === 'admin-login') view = 'home';
             showView(view, false); 
             history.replaceState({ view: view }, "", "#" + view);
         });
@@ -526,15 +517,24 @@
             document.getElementById('db-status').style.color = "#ef4444";
         }
 
-        // ================= HIDDEN ADMIN TRIGGER =================
+        // ================= RAHASIA: KLIK 7 KALI PADA LOGO UNTUK MASUK ADMIN =================
         let clickCount = 0, clickTimer;
         document.getElementById('logo-trigger').addEventListener('click', (e) => {
-            e.preventDefault(); clickCount++; clearTimeout(clickTimer);
-            if(clickCount >= 7) { showView('admin-login'); clickCount = 0; } 
-            else { clickTimer = setTimeout(() => { clickCount = 0; }, 3000); }
+            e.preventDefault(); 
+            clickCount++; 
+            clearTimeout(clickTimer);
+            if(clickCount >= 7) { 
+                showView('admin-login'); 
+                clickCount = 0; 
+            } else { 
+                clickTimer = setTimeout(() => { clickCount = 0; }, 3000); 
+            }
         });
 
         function showView(id, pushToHistory = true) {
+            // Mencegah orang lain masuk ke halaman admin tanpa login (jika mencoba mengakali URL)
+            if (id === 'admin') id = 'admin-login';
+
             ['home', 'tba', 'profile', 'admin-login', 'admin'].forEach(v => {
                 let el = document.getElementById('view-'+v);
                 if(el) el.classList.add('hidden');
@@ -553,24 +553,26 @@
             } else if(id === 'tba') {
                 document.getElementById('btn-nav-tba').classList.add('active');
                 renderUpcoming();
+            } else if(id === 'admin-login') {
+                // Di halaman login admin
             } else if(id === 'admin') {
-                let adminBtn = document.getElementById('btn-admin-panel');
-                if(adminBtn) adminBtn.classList.add('active');
                 refreshAdminDropdowns(); renderManageBoxers(); renderUpcoming(); renderManageFights();
             }
             
             window.scrollTo(0,0);
 
-            if (pushToHistory) {
+            if (pushToHistory && id !== 'admin-login') {
                 history.pushState({ view: id }, "", "#" + id);
             }
         }
 
         function checkLogin() {
             if(document.getElementById('admin-pass').value === 'phoenix123') {
-                document.getElementById('btn-admin-panel').classList.remove('hidden');
-                document.getElementById('admin-pass').value = ''; showView('admin');
-            } else alert('Password salah bosku!');
+                document.getElementById('admin-pass').value = ''; 
+                showView('admin');
+            } else {
+                alert('Password salah bosku!');
+            }
         }
 
         // ================= HITUNG REKOR PETINJU =================
