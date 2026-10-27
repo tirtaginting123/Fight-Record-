@@ -497,7 +497,7 @@
         try {
             firebase.initializeApp(firebaseConfig);
             db = firebase.database();
-            document.getElementById('db-status').innerText = "⚡ Terhubung ke Cloud Realtime Database ";
+            document.getElementById('db-status').innerText = " ";
             document.getElementById('db-status').style.color = "#28a745";
 
             db.ref('boxers').on('value', (snapshot) => {
